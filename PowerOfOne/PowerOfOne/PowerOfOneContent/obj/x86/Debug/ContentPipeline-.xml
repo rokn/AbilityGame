@@ -1,0 +1,596 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:Pipeline="Microsoft.Xna.Framework.Content.Pipeline">
+  <Asset Type="Pipeline:BuildItemCollection">
+    <Item>
+      <Source>Font.spritefont</Source>
+      <Name>Font</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Games\Dropbox\Games\PowerOfOne\PowerOfOne\PowerOfOne\bin\x86\Debug\Content\Font.xnb</Output>
+      <Time>2014-09-29T12:17:26.9614129+03:00</Time>
+    </Item>
+    <Item>
+      <Source>Mouse.png</Source>
+      <Name>Mouse</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Games\Dropbox\Games\PowerOfOne\PowerOfOne\PowerOfOne\bin\x86\Debug\Content\Mouse.xnb</Output>
+      <Time>2014-09-29T12:17:26+03:00</Time>
+    </Item>
+    <Item>
+      <Source>Projectiles\Proj_0.png</Source>
+      <Name>Projectiles\Proj_0</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Games\Dropbox\Games\PowerOfOne\PowerOfOne\PowerOfOne\bin\x86\Debug\Content\Projectiles\Proj_0.xnb</Output>
+      <Time>2014-09-29T20:17:36+03:00</Time>
+    </Item>
+    <Item>
+      <Source>Projectiles\Proj_1.png</Source>
+      <Name>Projectiles\Proj_1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Games\Dropbox\Games\PowerOfOne\PowerOfOne\PowerOfOne\bin\x86\Debug\Content\Projectiles\Proj_1.xnb</Output>
+      <Time>2014-09-29T20:17:36+03:00</Time>
+    </Item>
+    <Item>
+      <Source>Projectiles\Proj_2.png</Source>
+      <Name>Projectiles\Proj_2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Games\Dropbox\Games\PowerOfOne\PowerOfOne\PowerOfOne\bin\x86\Debug\Content\Projectiles\Proj_2.xnb</Output>
+      <Time>2014-09-29T20:17:36+03:00</Time>
+    </Item>
+    <Item>
+      <Source>Player\Walk.png</Source>
+      <Name>Player\Walk</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Games\Dropbox\Games\PowerOfOne\PowerOfOne\PowerOfOne\bin\x86\Debug\Content\Player\Walk.xnb</Output>
+      <Time>2014-09-30T11:31:45+03:00</Time>
+    </Item>
+    <Item>
+      <Source>Weapons\Sword.png</Source>
+      <Name>Weapons\Sword</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Games\Dropbox\Games\PowerOfOne\PowerOfOne\PowerOfOne\bin\x86\Debug\Content\Weapons\Sword.xnb</Output>
+      <Time>2014-10-01T10:52:46+03:00</Time>
+    </Item>
+    <Item>
+      <Source>Enemies\HealthBar.png</Source>
+      <Name>Enemies\HealthBar</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Games\Dropbox\Games\PowerOfOne\PowerOfOne\PowerOfOne\bin\x86\Debug\Content\Enemies\HealthBar.xnb</Output>
+      <Time>2014-10-02T18:09:08+03:00</Time>
+    </Item>
+    <Item>
+      <Source>Enemies\HealthBarBackground.png</Source>
+      <Name>Enemies\HealthBarBackground</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Games\Dropbox\Games\PowerOfOne\PowerOfOne\PowerOfOne\bin\x86\Debug\Content\Enemies\HealthBarBackground.xnb</Output>
+      <Time>2014-10-02T18:12:40+03:00</Time>
+    </Item>
+    <Item>
+      <Source>WhitePixel.png</Source>
+      <Name>WhitePixel</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Games\Dropbox\Games\PowerOfOne\PowerOfOne\PowerOfOne\bin\x86\Debug\Content\WhitePixel.xnb</Output>
+      <Time>2014-10-03T23:29:53+03:00</Time>
+    </Item>
+    <Item>
+      <Source>TileSets\TileMarker.png</Source>
+      <Name>TileSets\TileMarker</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Games\Dropbox\Games\PowerOfOne\PowerOfOne\PowerOfOne\bin\x86\Debug\Content\TileSets\TileMarker.xnb</Output>
+      <Time>2014-10-04T16:59:59+03:00</Time>
+    </Item>
+    <Item>
+      <Source>TileSets\Tileset_ (10).png</Source>
+      <Name>TileSets\Tileset_ (10)</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Games\Dropbox\Games\PowerOfOne\PowerOfOne\PowerOfOne\bin\x86\Debug\Content\TileSets\Tileset_ (10).xnb</Output>
+      <Time>2008-08-22T10:23:14+03:00</Time>
+    </Item>
+    <Item>
+      <Source>TileSets\Tileset_ (11).png</Source>
+      <Name>TileSets\Tileset_ (11)</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Games\Dropbox\Games\PowerOfOne\PowerOfOne\PowerOfOne\bin\x86\Debug\Content\TileSets\Tileset_ (11).xnb</Output>
+      <Time>2008-08-22T10:27:42+03:00</Time>
+    </Item>
+    <Item>
+      <Source>TileSets\Tileset_ (12).png</Source>
+      <Name>TileSets\Tileset_ (12)</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Games\Dropbox\Games\PowerOfOne\PowerOfOne\PowerOfOne\bin\x86\Debug\Content\TileSets\Tileset_ (12).xnb</Output>
+      <Time>2008-08-22T10:23:16+03:00</Time>
+    </Item>
+    <Item>
+      <Source>TileSets\Tileset_ (13).png</Source>
+      <Name>TileSets\Tileset_ (13)</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Games\Dropbox\Games\PowerOfOne\PowerOfOne\PowerOfOne\bin\x86\Debug\Content\TileSets\Tileset_ (13).xnb</Output>
+      <Time>2008-08-22T10:27:42+03:00</Time>
+    </Item>
+    <Item>
+      <Source>TileSets\Tileset_ (14).png</Source>
+      <Name>TileSets\Tileset_ (14)</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Games\Dropbox\Games\PowerOfOne\PowerOfOne\PowerOfOne\bin\x86\Debug\Content\TileSets\Tileset_ (14).xnb</Output>
+      <Time>2008-08-22T10:27:42+03:00</Time>
+    </Item>
+    <Item>
+      <Source>TileSets\Tileset_ (15).png</Source>
+      <Name>TileSets\Tileset_ (15)</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Games\Dropbox\Games\PowerOfOne\PowerOfOne\PowerOfOne\bin\x86\Debug\Content\TileSets\Tileset_ (15).xnb</Output>
+      <Time>2008-08-22T10:23:18+03:00</Time>
+    </Item>
+    <Item>
+      <Source>TileSets\Tileset_ (16).png</Source>
+      <Name>TileSets\Tileset_ (16)</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Games\Dropbox\Games\PowerOfOne\PowerOfOne\PowerOfOne\bin\x86\Debug\Content\TileSets\Tileset_ (16).xnb</Output>
+      <Time>2008-08-22T10:27:44+03:00</Time>
+    </Item>
+    <Item>
+      <Source>TileSets\Tileset_ (17).png</Source>
+      <Name>TileSets\Tileset_ (17)</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Games\Dropbox\Games\PowerOfOne\PowerOfOne\PowerOfOne\bin\x86\Debug\Content\TileSets\Tileset_ (17).xnb</Output>
+      <Time>2008-08-22T10:23:22+03:00</Time>
+    </Item>
+    <Item>
+      <Source>TileSets\Tileset_ (18).png</Source>
+      <Name>TileSets\Tileset_ (18)</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Games\Dropbox\Games\PowerOfOne\PowerOfOne\PowerOfOne\bin\x86\Debug\Content\TileSets\Tileset_ (18).xnb</Output>
+      <Time>2008-08-22T10:23:26+03:00</Time>
+    </Item>
+    <Item>
+      <Source>TileSets\Tileset_ (19).png</Source>
+      <Name>TileSets\Tileset_ (19)</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Games\Dropbox\Games\PowerOfOne\PowerOfOne\PowerOfOne\bin\x86\Debug\Content\TileSets\Tileset_ (19).xnb</Output>
+      <Time>2008-08-22T10:23:28+03:00</Time>
+    </Item>
+    <Item>
+      <Source>TileSets\Tileset_ (2).png</Source>
+      <Name>TileSets\Tileset_ (2)</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Games\Dropbox\Games\PowerOfOne\PowerOfOne\PowerOfOne\bin\x86\Debug\Content\TileSets\Tileset_ (2).xnb</Output>
+      <Time>2014-09-29T20:35:08+03:00</Time>
+    </Item>
+    <Item>
+      <Source>TileSets\Tileset_ (20).png</Source>
+      <Name>TileSets\Tileset_ (20)</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Games\Dropbox\Games\PowerOfOne\PowerOfOne\PowerOfOne\bin\x86\Debug\Content\TileSets\Tileset_ (20).xnb</Output>
+      <Time>2008-08-22T10:27:44+03:00</Time>
+    </Item>
+    <Item>
+      <Source>TileSets\Tileset_ (21).png</Source>
+      <Name>TileSets\Tileset_ (21)</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Games\Dropbox\Games\PowerOfOne\PowerOfOne\PowerOfOne\bin\x86\Debug\Content\TileSets\Tileset_ (21).xnb</Output>
+      <Time>2008-08-22T10:27:44+03:00</Time>
+    </Item>
+    <Item>
+      <Source>TileSets\Tileset_ (22).png</Source>
+      <Name>TileSets\Tileset_ (22)</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Games\Dropbox\Games\PowerOfOne\PowerOfOne\PowerOfOne\bin\x86\Debug\Content\TileSets\Tileset_ (22).xnb</Output>
+      <Time>2008-08-22T10:23:32+03:00</Time>
+    </Item>
+    <Item>
+      <Source>TileSets\Tileset_ (23).png</Source>
+      <Name>TileSets\Tileset_ (23)</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Games\Dropbox\Games\PowerOfOne\PowerOfOne\PowerOfOne\bin\x86\Debug\Content\TileSets\Tileset_ (23).xnb</Output>
+      <Time>2008-08-22T10:27:44+03:00</Time>
+    </Item>
+    <Item>
+      <Source>TileSets\Tileset_ (24).png</Source>
+      <Name>TileSets\Tileset_ (24)</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Games\Dropbox\Games\PowerOfOne\PowerOfOne\PowerOfOne\bin\x86\Debug\Content\TileSets\Tileset_ (24).xnb</Output>
+      <Time>2008-08-22T10:23:36+03:00</Time>
+    </Item>
+    <Item>
+      <Source>TileSets\Tileset_ (25).png</Source>
+      <Name>TileSets\Tileset_ (25)</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Games\Dropbox\Games\PowerOfOne\PowerOfOne\PowerOfOne\bin\x86\Debug\Content\TileSets\Tileset_ (25).xnb</Output>
+      <Time>2008-08-22T10:27:44+03:00</Time>
+    </Item>
+    <Item>
+      <Source>TileSets\Tileset_ (26).png</Source>
+      <Name>TileSets\Tileset_ (26)</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Games\Dropbox\Games\PowerOfOne\PowerOfOne\PowerOfOne\bin\x86\Debug\Content\TileSets\Tileset_ (26).xnb</Output>
+      <Time>2008-08-22T10:23:38+03:00</Time>
+    </Item>
+    <Item>
+      <Source>TileSets\Tileset_ (27).png</Source>
+      <Name>TileSets\Tileset_ (27)</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Games\Dropbox\Games\PowerOfOne\PowerOfOne\PowerOfOne\bin\x86\Debug\Content\TileSets\Tileset_ (27).xnb</Output>
+      <Time>2008-08-22T10:27:46+03:00</Time>
+    </Item>
+    <Item>
+      <Source>TileSets\Tileset_ (28).png</Source>
+      <Name>TileSets\Tileset_ (28)</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Games\Dropbox\Games\PowerOfOne\PowerOfOne\PowerOfOne\bin\x86\Debug\Content\TileSets\Tileset_ (28).xnb</Output>
+      <Time>2008-08-22T10:23:42+03:00</Time>
+    </Item>
+    <Item>
+      <Source>TileSets\Tileset_ (29).png</Source>
+      <Name>TileSets\Tileset_ (29)</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Games\Dropbox\Games\PowerOfOne\PowerOfOne\PowerOfOne\bin\x86\Debug\Content\TileSets\Tileset_ (29).xnb</Output>
+      <Time>2008-08-22T10:23:46+03:00</Time>
+    </Item>
+    <Item>
+      <Source>TileSets\Tileset_ (3).png</Source>
+      <Name>TileSets\Tileset_ (3)</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Games\Dropbox\Games\PowerOfOne\PowerOfOne\PowerOfOne\bin\x86\Debug\Content\TileSets\Tileset_ (3).xnb</Output>
+      <Time>2008-08-22T10:24:54+03:00</Time>
+    </Item>
+    <Item>
+      <Source>TileSets\Tileset_ (30).png</Source>
+      <Name>TileSets\Tileset_ (30)</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Games\Dropbox\Games\PowerOfOne\PowerOfOne\PowerOfOne\bin\x86\Debug\Content\TileSets\Tileset_ (30).xnb</Output>
+      <Time>2008-08-22T10:27:46+03:00</Time>
+    </Item>
+    <Item>
+      <Source>TileSets\Tileset_ (31).png</Source>
+      <Name>TileSets\Tileset_ (31)</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Games\Dropbox\Games\PowerOfOne\PowerOfOne\PowerOfOne\bin\x86\Debug\Content\TileSets\Tileset_ (31).xnb</Output>
+      <Time>2008-08-22T10:27:46+03:00</Time>
+    </Item>
+    <Item>
+      <Source>TileSets\Tileset_ (32).png</Source>
+      <Name>TileSets\Tileset_ (32)</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Games\Dropbox\Games\PowerOfOne\PowerOfOne\PowerOfOne\bin\x86\Debug\Content\TileSets\Tileset_ (32).xnb</Output>
+      <Time>2008-08-22T10:23:56+03:00</Time>
+    </Item>
+    <Item>
+      <Source>TileSets\Tileset_ (33).png</Source>
+      <Name>TileSets\Tileset_ (33)</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Games\Dropbox\Games\PowerOfOne\PowerOfOne\PowerOfOne\bin\x86\Debug\Content\TileSets\Tileset_ (33).xnb</Output>
+      <Time>2008-08-22T10:27:46+03:00</Time>
+    </Item>
+    <Item>
+      <Source>TileSets\Tileset_ (34).png</Source>
+      <Name>TileSets\Tileset_ (34)</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Games\Dropbox\Games\PowerOfOne\PowerOfOne\PowerOfOne\bin\x86\Debug\Content\TileSets\Tileset_ (34).xnb</Output>
+      <Time>2008-08-22T10:23:58+03:00</Time>
+    </Item>
+    <Item>
+      <Source>TileSets\Tileset_ (35).png</Source>
+      <Name>TileSets\Tileset_ (35)</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Games\Dropbox\Games\PowerOfOne\PowerOfOne\PowerOfOne\bin\x86\Debug\Content\TileSets\Tileset_ (35).xnb</Output>
+      <Time>2008-08-22T10:27:48+03:00</Time>
+    </Item>
+    <Item>
+      <Source>TileSets\Tileset_ (36).png</Source>
+      <Name>TileSets\Tileset_ (36)</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Games\Dropbox\Games\PowerOfOne\PowerOfOne\PowerOfOne\bin\x86\Debug\Content\TileSets\Tileset_ (36).xnb</Output>
+      <Time>2008-08-22T10:24:04+03:00</Time>
+    </Item>
+    <Item>
+      <Source>TileSets\Tileset_ (37).png</Source>
+      <Name>TileSets\Tileset_ (37)</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Games\Dropbox\Games\PowerOfOne\PowerOfOne\PowerOfOne\bin\x86\Debug\Content\TileSets\Tileset_ (37).xnb</Output>
+      <Time>2008-08-22T10:27:48+03:00</Time>
+    </Item>
+    <Item>
+      <Source>TileSets\Tileset_ (38).png</Source>
+      <Name>TileSets\Tileset_ (38)</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Games\Dropbox\Games\PowerOfOne\PowerOfOne\PowerOfOne\bin\x86\Debug\Content\TileSets\Tileset_ (38).xnb</Output>
+      <Time>2008-08-22T10:27:48+03:00</Time>
+    </Item>
+    <Item>
+      <Source>TileSets\Tileset_ (39).png</Source>
+      <Name>TileSets\Tileset_ (39)</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Games\Dropbox\Games\PowerOfOne\PowerOfOne\PowerOfOne\bin\x86\Debug\Content\TileSets\Tileset_ (39).xnb</Output>
+      <Time>2008-08-22T10:27:48+03:00</Time>
+    </Item>
+    <Item>
+      <Source>TileSets\Tileset_ (4).png</Source>
+      <Name>TileSets\Tileset_ (4)</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Games\Dropbox\Games\PowerOfOne\PowerOfOne\PowerOfOne\bin\x86\Debug\Content\TileSets\Tileset_ (4).xnb</Output>
+      <Time>2008-08-22T10:22:16+03:00</Time>
+    </Item>
+    <Item>
+      <Source>TileSets\Tileset_ (40).png</Source>
+      <Name>TileSets\Tileset_ (40)</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Games\Dropbox\Games\PowerOfOne\PowerOfOne\PowerOfOne\bin\x86\Debug\Content\TileSets\Tileset_ (40).xnb</Output>
+      <Time>2008-08-22T10:24:12+03:00</Time>
+    </Item>
+    <Item>
+      <Source>TileSets\Tileset_ (41).png</Source>
+      <Name>TileSets\Tileset_ (41)</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Games\Dropbox\Games\PowerOfOne\PowerOfOne\PowerOfOne\bin\x86\Debug\Content\TileSets\Tileset_ (41).xnb</Output>
+      <Time>2008-08-22T10:24:14+03:00</Time>
+    </Item>
+    <Item>
+      <Source>TileSets\Tileset_ (5).png</Source>
+      <Name>TileSets\Tileset_ (5)</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Games\Dropbox\Games\PowerOfOne\PowerOfOne\PowerOfOne\bin\x86\Debug\Content\TileSets\Tileset_ (5).xnb</Output>
+      <Time>2008-08-22T10:27:42+03:00</Time>
+    </Item>
+    <Item>
+      <Source>TileSets\Tileset_ (6).png</Source>
+      <Name>TileSets\Tileset_ (6)</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Games\Dropbox\Games\PowerOfOne\PowerOfOne\PowerOfOne\bin\x86\Debug\Content\TileSets\Tileset_ (6).xnb</Output>
+      <Time>2008-08-22T10:22:20+03:00</Time>
+    </Item>
+    <Item>
+      <Source>TileSets\Tileset_ (7).png</Source>
+      <Name>TileSets\Tileset_ (7)</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Games\Dropbox\Games\PowerOfOne\PowerOfOne\PowerOfOne\bin\x86\Debug\Content\TileSets\Tileset_ (7).xnb</Output>
+      <Time>2008-08-22T10:27:42+03:00</Time>
+    </Item>
+    <Item>
+      <Source>TileSets\Tileset_ (8).png</Source>
+      <Name>TileSets\Tileset_ (8)</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Games\Dropbox\Games\PowerOfOne\PowerOfOne\PowerOfOne\bin\x86\Debug\Content\TileSets\Tileset_ (8).xnb</Output>
+      <Time>2008-08-22T10:27:42+03:00</Time>
+    </Item>
+    <Item>
+      <Source>TileSets\Tileset_ (9).png</Source>
+      <Name>TileSets\Tileset_ (9)</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Games\Dropbox\Games\PowerOfOne\PowerOfOne\PowerOfOne\bin\x86\Debug\Content\TileSets\Tileset_ (9).xnb</Output>
+      <Time>2008-08-22T10:22:26+03:00</Time>
+    </Item>
+    <Item>
+      <Source>TileSets\Tileset_ (0).png</Source>
+      <Name>TileSets\Tileset_ (0)</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Games\Dropbox\Games\PowerOfOne\PowerOfOne\PowerOfOne\bin\x86\Debug\Content\TileSets\Tileset_ (0).xnb</Output>
+      <Time>2014-09-30T00:04:33+03:00</Time>
+    </Item>
+    <Item>
+      <Source>TileSets\Tileset_ (1).png</Source>
+      <Name>TileSets\Tileset_ (1)</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Games\Dropbox\Games\PowerOfOne\PowerOfOne\PowerOfOne\bin\x86\Debug\Content\TileSets\Tileset_ (1).xnb</Output>
+      <Time>2008-08-22T10:27:48+03:00</Time>
+    </Item>
+    <Item>
+      <Source>Abilities\Telekinesis\Push.png</Source>
+      <Name>Abilities\Telekinesis\Push</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Games\Dropbox\Games\PowerOfOne\PowerOfOne\PowerOfOne\bin\x86\Debug\Content\Abilities\Telekinesis\Push.xnb</Output>
+      <Time>2014-10-06T19:28:12+03:00</Time>
+    </Item>
+    <Item>
+      <Source>Enemies\Enemy_0.png</Source>
+      <Name>Enemies\Enemy_0</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Games\Dropbox\Games\PowerOfOne\PowerOfOne\PowerOfOne\bin\x86\Debug\Content\Enemies\Enemy_0.xnb</Output>
+      <Time>2014-10-01T21:13:19+03:00</Time>
+    </Item>
+    <Item>
+      <Source>Enemies\Enemy_1.png</Source>
+      <Name>Enemies\Enemy_1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Games\Dropbox\Games\PowerOfOne\PowerOfOne\PowerOfOne\bin\x86\Debug\Content\Enemies\Enemy_1.xnb</Output>
+      <Time>2014-10-01T23:04:26+03:00</Time>
+    </Item>
+    <Item>
+      <Source>Enemies\Enemy_2.png</Source>
+      <Name>Enemies\Enemy_2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Games\Dropbox\Games\PowerOfOne\PowerOfOne\PowerOfOne\bin\x86\Debug\Content\Enemies\Enemy_2.xnb</Output>
+      <Time>2014-10-06T23:11:41+03:00</Time>
+    </Item>
+    <Item>
+      <Source>Enemies\Enemy_3.png</Source>
+      <Name>Enemies\Enemy_3</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Games\Dropbox\Games\PowerOfOne\PowerOfOne\PowerOfOne\bin\x86\Debug\Content\Enemies\Enemy_3.xnb</Output>
+      <Time>2014-10-06T23:11:54+03:00</Time>
+    </Item>
+    <Item>
+      <Source>Enemies\Enemy_6.png</Source>
+      <Name>Enemies\Enemy_6</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Games\Dropbox\Games\PowerOfOne\PowerOfOne\PowerOfOne\bin\x86\Debug\Content\Enemies\Enemy_6.xnb</Output>
+      <Time>2014-10-06T23:11:54+03:00</Time>
+    </Item>
+    <Item>
+      <Source>Enemies\Enemy_5.png</Source>
+      <Name>Enemies\Enemy_5</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Games\Dropbox\Games\PowerOfOne\PowerOfOne\PowerOfOne\bin\x86\Debug\Content\Enemies\Enemy_5.xnb</Output>
+      <Time>2014-10-06T23:11:54+03:00</Time>
+    </Item>
+    <Item>
+      <Source>Enemies\Enemy_4.png</Source>
+      <Name>Enemies\Enemy_4</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Games\Dropbox\Games\PowerOfOne\PowerOfOne\PowerOfOne\bin\x86\Debug\Content\Enemies\Enemy_4.xnb</Output>
+      <Time>2014-10-06T23:11:54+03:00</Time>
+    </Item>
+    <BuildSuccessful>true</BuildSuccessful>
+    <Settings>
+      <ContentProjectGUID Null="true" />
+      <TargetPlatform>Windows</TargetPlatform>
+      <TargetProfile>Reach</TargetProfile>
+      <BuildConfiguration>Debug</BuildConfiguration>
+      <CompressContent>false</CompressContent>
+      <RootDirectory>D:\Games\Dropbox\Games\PowerOfOne\PowerOfOne\PowerOfOneContent\</RootDirectory>
+      <LoggerRootDirectory>D:\Games\Dropbox\Games\PowerOfOne\PowerOfOne\PowerOfOne\</LoggerRootDirectory>
+      <IntermediateDirectory>D:\Games\Dropbox\Games\PowerOfOne\PowerOfOne\PowerOfOneContent\obj\x86\Debug\</IntermediateDirectory>
+      <OutputDirectory>D:\Games\Dropbox\Games\PowerOfOne\PowerOfOne\PowerOfOne\bin\x86\Debug\Content\</OutputDirectory>
+    </Settings>
+    <Assemblies>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.XImporter.dll</Key>
+        <Value>2011-09-01T16:22:30+03:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.VideoImporters.dll</Key>
+        <Value>2011-09-01T16:22:30+03:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.TextureImporter.dll</Key>
+        <Value>2011-09-01T16:22:30+03:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.FBXImporter.dll</Key>
+        <Value>2011-09-01T16:22:30+03:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.EffectImporter.dll</Key>
+        <Value>2011-09-01T16:22:30+03:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.AudioImporters.dll</Key>
+        <Value>2011-09-01T16:22:30+03:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Windows\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
+        <Value>2014-08-19T15:00:57.903755+03:00</Value>
+      </Assembly>
+    </Assemblies>
+  </Asset>
+</XnaContent>
