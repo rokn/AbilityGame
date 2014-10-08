@@ -38,22 +38,6 @@ namespace PowerOfOne
         public void Move(Vector2 amount)
         {
             pos += amount;
-            //if (pos.X < zeroPos.X)
-            //{
-            //    pos.X = zeroPos.X;
-            //}
-            //if (pos.X > Game.tilemap.Width - Game.width)
-            //{
-            //    pos.X = Game.tilemap.Width - Game.width;
-            //}
-            //if (pos.Y < zeroPos.Y)
-            //{
-            //    pos.Y = zeroPos.Y;
-            //}
-            //if (pos.Y > Game.tilemap.Height - Game.height)
-            //{
-            //    pos.Y = Game.tilemap.Height - Game.height;
-            //}
         }
 
         public Vector2 Position

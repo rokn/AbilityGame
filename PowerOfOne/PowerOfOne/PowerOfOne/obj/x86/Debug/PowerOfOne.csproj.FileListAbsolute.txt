@@ -65,3 +65,4 @@ D:\Games\Dropbox\Games\PowerOfOne\PowerOfOne\PowerOfOne\bin\x86\Debug\Content\En
 D:\Games\Dropbox\Games\PowerOfOne\PowerOfOne\PowerOfOne\bin\x86\Debug\Content\Enemies\Enemy_6.xnb
 D:\Games\Dropbox\Games\PowerOfOne\PowerOfOne\PowerOfOne\bin\x86\Debug\Content\Enemies\Enemy_5.xnb
 D:\Games\Dropbox\Games\PowerOfOne\PowerOfOne\PowerOfOne\bin\x86\Debug\Content\Enemies\Enemy_4.xnb
+D:\Games\Dropbox\Games\PowerOfOne\PowerOfOne\PowerOfOne\bin\x86\Debug\Content\Abilities\Telekinesis\Pull.xnb

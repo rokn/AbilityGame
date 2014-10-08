@@ -18,5 +18,7 @@ namespace PowerOfOne
         public virtual void Draw(SpriteBatch spriteBatch) { }
 
         public virtual void ActivateBasicAbility() { }
+
+        public virtual void ActivateSecondaryAbility() { }
     }
 }

@@ -141,5 +141,48 @@ namespace PowerOfOne
         {
             tileMap[x, y].hasTile = false;
         }
+
+        public void ClearTileMap()
+        {
+            for (int x = 0; x < Width; x++)
+            {
+                for (int y = 0; y < Height; y++)
+                {
+                    tileMap[x, y] = new TileCell(7, 2);
+                    if (x == 0 && y == 0)
+                    {
+                        tileMap[x, y] = new TileCell(3, 2);
+                    }
+                    else if (x == 0)
+                    {
+                        tileMap[x, y] = new TileCell(6, 2);
+                    }
+                    else if (y == 0)
+                    {
+                        tileMap[x, y] = new TileCell(4, 2);
+                    }
+                    if (x == Width - 1 && y == 0)
+                    {
+                        tileMap[x, y] = new TileCell(5, 2);
+                    }
+                    else if (x == Width - 1)
+                    {
+                        tileMap[x, y] = new TileCell(8, 2);
+                    }
+                    if (x == Width - 1 && y == Height - 1)
+                    {
+                        tileMap[x, y] = new TileCell(11, 2);
+                    }
+                    else if (y == Height - 1)
+                    {
+                        tileMap[x, y] = new TileCell(10, 2);
+                    }
+                    if (x == 0 && y == Height - 1)
+                    {
+                        tileMap[x, y] = new TileCell(9, 2);
+                    }
+                }
+            }
+        }
     }
 }

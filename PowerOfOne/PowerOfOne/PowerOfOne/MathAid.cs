@@ -21,6 +21,7 @@ namespace PowerOfOne
                 (int)(rectangle.Height * scale));
             return rect;
         }
+
         /// <summary>
         /// Scale the width and height of a Rectangle
         /// </summary>
@@ -34,6 +35,7 @@ namespace PowerOfOne
                 (int)(rectangle.Height * scale));
             return rect;
         }
+
         /// <summary>
         /// Scale the width and height of a Rectangle
         /// </summary>
@@ -47,6 +49,7 @@ namespace PowerOfOne
                 (int)(rectangle.Height * scale.Y));
             return rect;
         }
+
         /// <summary>
         /// Update the X, and Y of a Rectangle using a Vector2
         /// </summary>
@@ -59,6 +62,7 @@ namespace PowerOfOne
             return rectangle;
 
         }
+
         /// <summary>
         /// Turn a Vector2 into a rectangle
         /// </summary>
@@ -71,6 +75,7 @@ namespace PowerOfOne
             Rectangle rect = new Rectangle((int)position.X, (int)position.Y, width, height);
             return rect;
         }
+
         /// <summary>
         /// Turn two Vector2's into a rectangle
         /// </summary>
@@ -83,6 +88,7 @@ namespace PowerOfOne
                 (int)size.X, (int)size.Y);
             return rect;
         }
+
         /// <summary>
         /// Movement via a rotated Vector in 2D
         /// </summary>
@@ -97,6 +103,7 @@ namespace PowerOfOne
             position.Y += speed * ((float)Math.Sin(rotation));
             return position;
         }
+
         /// <summary>
         /// Movement via a rotated Vector in 2D
         /// </summary>
@@ -112,6 +119,7 @@ namespace PowerOfOne
             position.Y += speed * ((float)Math.Sin(rotation)) * scale;
             return position;
         }
+
         /// <summary>
         /// Movement via a rotated Vector in 2D
         /// </summary>
@@ -127,6 +135,7 @@ namespace PowerOfOne
             position.Y += speed * ((float)Math.Sin(rotation)) * scale.Y;
             return position;
         }
+
         /// <summary>
         /// Clamp one rectangle inside of another
         /// </summary>
@@ -153,6 +162,7 @@ namespace PowerOfOne
             }
             return movingRectangle;
         }
+
         /// <summary>
         /// Clamp a Vector2 inside a Rectangle
         /// </summary>
@@ -179,6 +189,7 @@ namespace PowerOfOne
             }
             return movingPosition;
         }
+
         /// <summary>
         /// Find the transformed position of a child position based on
         /// the rotation of a parent object
@@ -198,6 +209,7 @@ namespace PowerOfOne
             placement += parentPosition;
             return placement;
         }
+
         /// <summary>
         /// Find the transformed position of a child position based on
         /// the rotation and scale of a parent object
@@ -220,6 +232,7 @@ namespace PowerOfOne
             placement += parentPosition;
             return placement;
         }
+
         /// <summary>
         /// Find the rotation from one position to another
         /// </summary>
@@ -233,6 +246,7 @@ namespace PowerOfOne
             float rotation = (float)Math.Atan2(place.Y, place.X);
             return rotation;
         }
+
         /// <summary>
         /// Find the rotation from one scaled position to a non scaled position
         /// for instance a scaled object interacting with a mouse.

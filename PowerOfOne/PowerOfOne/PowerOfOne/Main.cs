@@ -12,11 +12,15 @@ namespace PowerOfOne
 {
     public class Main : Microsoft.Xna.Framework.Game
     {
+
         private const int TileSetsCount = 42;
-        public const bool inEditMode = false;
-        public const bool showBoundingBoxes = false;
+        public const bool inEditMode = true;
+        public const bool showBoundingBoxes = true;
         public const string SaveName = "Level1";
         private const int enemiesCount = 7;
+        private const int levelWidth1 = 100;
+        private const int levelHeight1 = 60;
+
 
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
@@ -55,7 +59,8 @@ namespace PowerOfOne
             keyboard = new KeysInput();
             exit = false;
             camera = new Camera();
-            tilemap = new TileMap(Vector2.Zero, width / 32 + 1 + 10, height / 32 + 1);
+            tilemap = new TileMap(Vector2.Zero,levelWidth1, levelHeight1);
+            LoadLevel();
             TileSet.SpriteSheet = new List<Texture2D>();
             TileSet.tileHeight = 32;
             TileSet.tileWidth = 32;
@@ -69,7 +74,13 @@ namespace PowerOfOne
                 player = new Player(new Vector2(500, 500));
                 Entities.Add(player);
                 Random rand = new Random();
-                Entities.Add(new Enemy(new Vector2(500,600),rand.Next(enemiesCount)));
+                Entities.Add(new Enemy(new Vector2(500, 800), rand.Next(enemiesCount)));
+                Entities.Add(new Enemy(new Vector2(600, 800), rand.Next(enemiesCount)));
+                Entities.Add(new Enemy(new Vector2(700, 800), rand.Next(enemiesCount)));
+                Entities.Add(new Enemy(new Vector2(800, 800), rand.Next(enemiesCount)));
+                Entities.Add(new Enemy(new Vector2(900, 800), rand.Next(enemiesCount)));
+                Entities.Add(new Enemy(new Vector2(1000, 800), rand.Next(enemiesCount)));
+                Entities.Add(new Enemy(new Vector2(1100, 800), rand.Next(enemiesCount)));
             }
             {
                 currTileset = 0;
@@ -111,29 +122,23 @@ namespace PowerOfOne
                 {
                     exit = true;
                 }
-                UpdateCamera();
 
                 if (!inEditMode)
                 {
-                    if (gameTimeRef == null)
-                    {
-                        gameTimeRef = gameTime;
-                    }
-                    Projectiles.ForEach(UpdateObject);
-                    Entities.ForEach(UpdateObject);
-                    RemoveEntities();
+                    NormalUpdate(gameTime);
                 }
                 else
                 {
                     EditUpdate();
+                    UpdateCamera();
                 }
-                if (Main.keyboard.IsHeld(Keys.LeftControl))
-                {
-                    if (Main.keyboard.JustPressed(Keys.L))
-                    {
-                        LoadLevel();
-                    }
-                }
+                //if (Main.keyboard.IsHeld(Keys.LeftControl))
+                //{
+                //    if (Main.keyboard.JustPressed(Keys.L))
+                //    {
+                //        LoadLevel();
+                //    }
+                //}
             }
 
             if (exit)
@@ -154,7 +159,19 @@ namespace PowerOfOne
                 Projectiles.ForEach(DrawObject);
                 Entities.ForEach(DrawObject);
             }
+            else
+            {
+                EditorGUI.Draw(spriteBatch,false);
+            }
             DrawObject(tilemap);
+            if (showBoundingBoxes)
+            {
+                foreach (var rect in blockRects)
+                {
+                    spriteBatch.Draw(BoundingBox, rect, rect, Color.Black * 0.3f, 0, new Vector2(), SpriteEffects.None, 0.9f);
+                }
+            }
+
 
             spriteBatch.End();
 
@@ -164,14 +181,7 @@ namespace PowerOfOne
             DrawMouse();
             if (inEditMode)
             {
-                EditorGUI.Draw(spriteBatch);
-            }
-            if (showBoundingBoxes)
-            {
-                foreach (var rect in blockRects)
-                {
-                    spriteBatch.Draw(BoundingBox, rect, rect, Color.Black * 0.3f, 0, new Vector2(), SpriteEffects.None, 0.9f);
-                }
+                EditorGUI.Draw(spriteBatch,true);
             }
 
             spriteBatch.End();
@@ -216,21 +226,33 @@ namespace PowerOfOne
         {
             if (Scripts.KeyIsPressed(Keys.NumPad4))
             {
-                camera.Move(new Vector2(-4, 0));
+                camera.Move(new Vector2(-8, 0));
             }
             if (Scripts.KeyIsPressed(Keys.NumPad6))
             {
-                camera.Move(new Vector2(4, 0));
+                camera.Move(new Vector2(8, 0));
             }
             if (Scripts.KeyIsPressed(Keys.NumPad8))
             {
-                camera.Move(new Vector2(0, -4));
+                camera.Move(new Vector2(0, -8));
             }
             if (Scripts.KeyIsPressed(Keys.NumPad2))
             {
-                camera.Move(new Vector2(0, 4));
+                camera.Move(new Vector2(0, 8));
             }
         }
+
+        private void NormalUpdate(GameTime gameTime)
+        {
+            if (gameTimeRef == null)
+            {
+                gameTimeRef = gameTime;
+            }
+            Projectiles.ForEach(UpdateObject);
+            Entities.ForEach(UpdateObject);
+            RemoveEntities();
+        }
+
 
         private void RemoveEntities()
         {
@@ -278,7 +300,14 @@ namespace PowerOfOne
             {
                 for (int b = 0; b < Main.tilemap.Height; b++)
                 {
-                    tilemap.tileMap[i, b] = (TileCell)formatter.Deserialize(stream);
+                    try
+                    {
+                        tilemap.tileMap[i, b] = (TileCell)formatter.Deserialize(stream);
+                    }
+                    catch(SerializationException)
+                    {
+                        break;
+                    }
                 }
             }
             stream.Close();

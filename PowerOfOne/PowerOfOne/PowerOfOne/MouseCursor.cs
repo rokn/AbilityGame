@@ -8,8 +8,10 @@ namespace PowerOfOne
         private MouseState currentmouse;
         private MouseState oldmouse;
         private Vector2 position;
+
         public Vector2 Position { get { return position; } private set { position = value; } }
         public Vector2 RealPosition { get { return Main.camera.GetRealMousePosition(); } }
+
         //This rectangle will be used to track
         //mouse click
         public Rectangle clickRectangle;

@@ -8,7 +8,9 @@ namespace PowerOfOne
     public abstract class Entity
     {
         public int EntityWidth { get; set; }
+
         public int EntityHeight { get; set; }
+
         protected int weaponTime;
         protected int attackSpeed;
         protected Dictionary<Direction, Animation> walkingAnimation;
@@ -54,9 +56,9 @@ namespace PowerOfOne
 
         protected virtual void Initialize()
         {
-            walkingOrigin = new Vector2(EntityWidth / 2, 0);
+            walkingOrigin = new Vector2(EntityWidth / 2, EntityHeight/2 - Math.Min(TileSet.tileHeight,EntityHeight/2));
             origin = new Vector2(EntityWidth / 2, EntityHeight / 2);
-            walkingRect = new Rectangle((int)position.X - (int)walkingOrigin.X, (int)position.Y + EntityHeight / 2, EntityWidth, EntityHeight / 2);
+            walkingRect = new Rectangle((int)position.X - (int)walkingOrigin.X, (int)position.Y - (int)walkingOrigin.Y, EntityWidth, EntityHeight -24);
             rect = new Rectangle((int)position.X - (int)origin.X, (int)position.Y - (int)origin.Y, EntityWidth, EntityHeight);
             UpdateRect();
         }
@@ -99,6 +101,18 @@ namespace PowerOfOne
                     position = oldPos;
                     UpdateRect();
                     break;
+                }
+            }
+            foreach (Entity entity in Main.Entities)
+            {
+                if (entity != this)
+                {
+                    if (walkingRect.Intersects(entity.walkingRect))
+                    {
+                        position = oldPos;
+                        UpdateRect();
+                        break;
+                    }
                 }
             }
             CheckIfWithinBounds();
@@ -160,7 +174,6 @@ namespace PowerOfOne
                 RoundPosition();
             }
         }
-
 
         private void CheckIfWithinBounds()
         {

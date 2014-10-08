@@ -147,6 +147,13 @@ namespace PowerOfOne
                         }
                     }
                 }
+                if (keyboard.IsHeld(Keys.LeftControl))
+                {
+                    if (keyboard.JustPressed(Keys.C))
+                    {
+                        Main.tilemap.ClearTileMap();
+                    }
+                }
             }
             else
             {
@@ -218,7 +225,7 @@ namespace PowerOfOne
         {
             foreach (Rectangle rect in Main.blockRects)
             {
-                if (mouse.clickRectangle.Intersects(rect))
+                if (rect.Contains(mouse.RealPosition))
                 {
                     rectsToRemove.Add(rect);
                 }
@@ -313,29 +320,43 @@ namespace PowerOfOne
             multipleSelected = false;
         }
 
-        public static void Draw(SpriteBatch spriteBatch)
+        public static void Draw(SpriteBatch spriteBatch,bool drawingGui)
         {
-            spriteBatch.Draw(pixelBox, backgroundPosition, backgroundRectangle, Color.Beige, 0, new Vector2(), 1f, SpriteEffects.None, 0.6f);
-            spriteBatch.Draw(currSpriteSheet, currTileSetPosition, null, Color.White, 0, new Vector2(), 1f, SpriteEffects.None, 0.61f);
-            spriteBatch.DrawString(Main.Font, "Blocks Mode : " + blocksMode.ToString(), new Vector2(), Color.Black, 0, new Vector2(), 1f, SpriteEffects.None, 0.8f);
-            spriteBatch.DrawString(Main.Font, "CT: " + Main.currTileset.ToString(), backgroundPosition, Color.Black, 0, new Vector2(), 1f, SpriteEffects.None, 0.8f);
-            if (blocksMode)
+            if (drawingGui)
             {
-                if (isDraggingRect)
-                {
-                    spriteBatch.Draw(pixelBox, rectToBeAdded, rectToBeAdded, Color.Black * 0.5f, 0, new Vector2(), SpriteEffects.None, 0.79f);
-                }
+                spriteBatch.Draw(pixelBox, backgroundPosition, backgroundRectangle, Color.Beige, 0, new Vector2(), 1f, SpriteEffects.None, 0.6f);
+                spriteBatch.Draw(currSpriteSheet, currTileSetPosition, null, Color.White, 0, new Vector2(), 1f, SpriteEffects.None, 0.61f);
+                spriteBatch.DrawString(Main.Font, "Blocks Mode : " + blocksMode.ToString(), new Vector2(), Color.Black, 0, new Vector2(), 1f, SpriteEffects.None, 0.8f);
+                spriteBatch.DrawString(Main.Font, "Mouse Position : " + mouse.Position, new Vector2(0, 30), Color.Black, 0, new Vector2(), 1f, SpriteEffects.None, 0.8f);
+                spriteBatch.DrawString(Main.Font, "Mouse Real Position : " + mouse.RealPosition, new Vector2(0, 60), Color.Black, 0, new Vector2(), 1f, SpriteEffects.None, 0.8f);
+                spriteBatch.DrawString(Main.Font, "Camera Position : " + (Main.camera.pos - Main.camera.zeroPos).ToString(), new Vector2(0, 90), Color.Black, 0, new Vector2(), 1f, SpriteEffects.None, 0.8f);
+                spriteBatch.DrawString(Main.Font, "CT: " + Main.currTileset.ToString(), backgroundPosition, Color.Black, 0, new Vector2(), 1f, SpriteEffects.None, 0.8f);
+                spriteBatch.Draw(selectedTileTexture, markerPosition, markerRect, Color.White, 0, new Vector2(), 1f, SpriteEffects.None, 0.9f);
             }
             else
             {
-                spriteBatch.Draw(selectedTileTexture, markerPosition, markerRect, Color.White, 0, new Vector2(), 1f, SpriteEffects.None, 0.62f);
-                if (mouse.Position.X < Main.width - currSpriteSheet.Width)
+                if (blocksMode)
                 {
-                    Vector2 mouseSelectedPosition;
-                    mouseSelectedPosition = new Vector2((int)Main.mouse.Position.X / TileSet.tileWidth, (int)mouse.Position.Y / TileSet.tileHeight);
-                    mouseSelectedPosition.X *= TileSet.tileWidth;
-                    mouseSelectedPosition.Y *= TileSet.tileHeight;
-                    spriteBatch.Draw(selectedTileTexture, mouseSelectedPosition, markerRect, Color.White, 0, new Vector2(), 1f, SpriteEffects.None, 0.15f);
+                    if (isDraggingRect)
+                    {
+                        spriteBatch.Draw(pixelBox, rectToBeAdded, rectToBeAdded, Color.Black * 0.5f, 0, new Vector2(), SpriteEffects.None, 0.79f);
+                    }
+                }
+                else
+                {
+                    
+                    if (mouse.Position.X < Main.width - currSpriteSheet.Width)
+                    {
+                        if (keyboard.JustPressed(Keys.D))
+                        {
+
+                        }
+                        Vector2 mouseSelectedPosition;
+                        mouseSelectedPosition = new Vector2((int)(mouse.RealPosition.X / TileSet.tileWidth), (int)(mouse.RealPosition.Y / TileSet.tileHeight));
+                        mouseSelectedPosition.X *= TileSet.tileWidth;
+                        mouseSelectedPosition.Y *= TileSet.tileHeight;
+                        spriteBatch.Draw(selectedTileTexture, Main.tilemap.Position + mouseSelectedPosition, markerRect, Color.White, 0, new Vector2(), 1f, SpriteEffects.None, 0.15f);
+                    }
                 }
             }
         }

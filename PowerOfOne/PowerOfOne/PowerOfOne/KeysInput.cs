@@ -5,18 +5,21 @@ namespace PowerOfOne
 {
     public class KeysInput
     {
-        KeyboardState currentKeyboard;
-        KeyboardState oldKeyboard;
+        private KeyboardState currentKeyboard;
+        private KeyboardState oldKeyboard;
+
         public KeysInput()
         {
             currentKeyboard = new KeyboardState();
             oldKeyboard = new KeyboardState();
         }
+
         public void Update(GameTime gameTime)
         {
             oldKeyboard = currentKeyboard;
             currentKeyboard = Keyboard.GetState();
         }
+
         /// <summary>
         /// Use this to determine if the key is being held
         /// </summary>
@@ -33,6 +36,7 @@ namespace PowerOfOne
                 return false;
             }
         }
+
         /// <summary>
         /// Use this to check if the key was just released
         /// </summary>
@@ -50,6 +54,7 @@ namespace PowerOfOne
             }
 
         }
+
         /// <summary>
         /// Use this to see if the key was just pressed
         /// </summary>

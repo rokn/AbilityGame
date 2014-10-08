@@ -18,10 +18,10 @@ namespace PowerOfOne
         private TimeSpan attackTimer;
         private bool hasHit;
 
-        public byte abilityPower { get; private set; } 
+        public byte abilityPower { get; private set; }
 
         public Player(Vector2 pos)
-            :base(pos)
+            : base(pos)
         {
             weaponTime = 200;
             attackSpeed = 500;
@@ -55,9 +55,9 @@ namespace PowerOfOne
         public override void Update(GameTime gameTime)
         {
             CheckForInput();
-            if(weaponIsOut)
+            if (weaponIsOut)
             {
-                if(!hasHit)
+                if (!hasHit)
                 {
                     CheckIfHasHit();
                 }
@@ -88,27 +88,26 @@ namespace PowerOfOne
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            if(weaponIsOut)
+            if (weaponIsOut)
             {
                 spriteBatch.Draw(weaponTexture, weaponPosition, null, Color.White, weaponRotation, new Vector2(0, weaponTexture.Height / 2), 1f, SpriteEffects.None, 0.3f);
             }
-            walkingAnimation[currentDirection].Draw(spriteBatch, 0.9f,Color.White*0.2f);
+            walkingAnimation[currentDirection].Draw(spriteBatch, 0.9f, Color.White * 0.2f);
             base.Draw(spriteBatch);
         }
-
 
         private void CheckIfHasHit()
         {
             foreach (Entity entity in Main.Entities)
             {
-                if(entity!=this)
+                if (entity != this)
                 {
-                    if(Vector2.Distance(weaponTipPosition,entity.Position)<=weaponTexture.Width)
+                    if (Vector2.Distance(weaponTipPosition, entity.Position) <= weaponTexture.Width)
                     {
                         Vector2 direction = Vector2.Normalize(weaponTipPosition - weaponPosition);
                         for (int i = 0; i < weaponTexture.Width; i++)
                         {
-                            if (entity.rect.Contains(weaponPosition+direction * i))
+                            if (entity.rect.Contains(weaponPosition + direction * i))
                             {
                                 entity.TakeDamage(baseDamage);
                                 hasHit = true;
@@ -133,7 +132,7 @@ namespace PowerOfOne
             weaponTipPosition *= (EntityHeight / 2) + weaponTexture.Width;
             weaponTipPosition += position;
 
-            weaponPosition *= EntityHeight/2;
+            weaponPosition *= EntityHeight / 2;
             weaponPosition += position;
 
             weaponRotation = MathAid.FindRotation(weaponPosition, Main.mouse.RealPosition);
@@ -173,7 +172,7 @@ namespace PowerOfOne
         {
             if (Scripts.KeyIsPressed(Keys.D))
             {
-                Move(Direction.Right,moveSpeed);
+                Move(Direction.Right, moveSpeed);
             }
             else if (Scripts.KeyIsPressed(Keys.A))
             {
@@ -188,27 +187,34 @@ namespace PowerOfOne
                 Move(Direction.Down, moveSpeed);
             }
 
-            if(Scripts.KeyIsReleased(Keys.W)&&
-                Scripts.KeyIsReleased(Keys.A)&&
-                Scripts.KeyIsReleased(Keys.S)&&
+            if (Scripts.KeyIsReleased(Keys.W) &&
+                Scripts.KeyIsReleased(Keys.A) &&
+                Scripts.KeyIsReleased(Keys.S) &&
                 Scripts.KeyIsReleased(Keys.D))
             {
-                foreach (KeyValuePair<Direction,Animation> kvp in walkingAnimation)
+                foreach (KeyValuePair<Direction, Animation> kvp in walkingAnimation)
                 {
                     kvp.Value.ChangeAnimatingState(false);
                 }
             }
 
-            if(Main.mouse.LeftClick()||Main.mouse.LeftHeld())
+            if (Main.mouse.LeftClick() || Main.mouse.LeftHeld())
             {
-                if (canAttack)
+                if (!Main.mouse.clickRectangle.Intersects(rect))
                 {
-                    if (!weaponIsOut)
-                    {
-                        StartBasicAttack();
-                    }
+                    //if (canAttack)
+                    //{
+                    //    if (!weaponIsOut)
+                    //    {
+                    //        StartBasicAttack();
+                    //    }
+                    //}
+                    ability.ActivateBasicAbility();
                 }
-                ability.ActivateBasicAbility();
+            }
+            if (Main.mouse.RightClick() || Main.mouse.RightHeld())
+            {
+                ability.ActivateSecondaryAbility();
             }
         }
     }

@@ -12,6 +12,7 @@ namespace PowerOfOne
     /// </summary>
     public class Animation
     {
+
         #region Vars
         public int stepsPerFrame, Index, currFrameSteps;
         private List<Rectangle> sourceRectangles;
@@ -23,6 +24,7 @@ namespace PowerOfOne
         public bool looping, isAnimating;
         public int FrameCount;
         #endregion
+
         #region Constructors
         public Animation(List<Rectangle> rectangleList, Texture2D spriteSheet, int StepsPerFrame, bool Looping)
         {
@@ -52,16 +54,19 @@ namespace PowerOfOne
 
         }
         #endregion
+
         public void ChangeAnimatingState(bool IsAnimating)
         {
             Index = 0;
             currFrameSteps = 0;
             isAnimating = IsAnimating;
         }
+
         public void SetPosition(Vector2 position)
         {
             Position = position;
         }
+
         #region Update
         public void Update(Vector2 position, float Rotation)
         {
@@ -118,6 +123,7 @@ namespace PowerOfOne
             }
         }
         #endregion;
+
         public void Draw(SpriteBatch spriteBatch, float depth,Color color)
         {
             if (isSpriteSheet)
