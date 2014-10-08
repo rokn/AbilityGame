@@ -5,6 +5,8 @@ Content\Projectiles\Proj_1.xnb
 Content\Projectiles\Proj_2.xnb
 Content\Player\Walk.xnb
 Content\Weapons\Sword.xnb
+Content\Enemies\Enemy_0.xnb
+Content\Enemies\Enemy_1.xnb
 Content\Enemies\HealthBar.xnb
 Content\Enemies\HealthBarBackground.xnb
 Content\WhitePixel.xnb
@@ -52,8 +54,6 @@ Content\TileSets\Tileset_ (9).xnb
 Content\TileSets\Tileset_ (0).xnb
 Content\TileSets\Tileset_ (1).xnb
 Content\Abilities\Telekinesis\Push.xnb
-Content\Enemies\Enemy_0.xnb
-Content\Enemies\Enemy_1.xnb
 Content\Enemies\Enemy_2.xnb
 Content\Enemies\Enemy_3.xnb
 Content\Enemies\Enemy_6.xnb

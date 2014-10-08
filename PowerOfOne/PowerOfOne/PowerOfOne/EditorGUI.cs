@@ -176,15 +176,28 @@ namespace PowerOfOne
                     {
                         rectToBeAdded = new Rectangle((int)mouse.RealPosition.X, (int)mouse.RealPosition.Y, 0, 0);
                         isDraggingRect = true;
+                        if (keyboard.IsHeld(Keys.LeftShift))
+                        {
+                            Vector2 snappedPosition = GetSnappedMousePosition();
+                            rectToBeAdded = MathAid.UpdateRectViaVector(rectToBeAdded, snappedPosition);
+                        }
                     }
                     if (isDraggingRect)
                     {
-                        rectToBeAdded.Width = (int)mouse.RealPosition.X - rectToBeAdded.X;
-                        rectToBeAdded.Height = (int)mouse.RealPosition.Y - rectToBeAdded.Y;
+                        if (keyboard.IsHeld(Keys.LeftShift))
+                        {
+                            Vector2 snappedPosition = GetSnappedMousePosition();
+                            rectToBeAdded.Width = (int)snappedPosition.X - rectToBeAdded.X + TileSet.tileWidth;
+                            rectToBeAdded.Height = (int)snappedPosition.Y - rectToBeAdded.Y + TileSet.tileHeight;
+                        }
+                        else
+                        {
+                            rectToBeAdded.Width = (int)mouse.RealPosition.X - rectToBeAdded.X;
+                            rectToBeAdded.Height = (int)mouse.RealPosition.Y - rectToBeAdded.Y;
+                        }
                         if (mouse.LeftReleased())
                         {
-                            isDraggingRect = false;
-                            Main.blockRects.Add(rectToBeAdded);
+                            AddRect();
                         }
                     }
                     #endregion
@@ -219,6 +232,12 @@ namespace PowerOfOne
                 blocksMode = !blocksMode;
             }
             #endregion
+        }
+
+        private static void AddRect()
+        {
+            isDraggingRect = false;
+            Main.blockRects.Add(rectToBeAdded);
         }
 
         private static void RemoveRects()
@@ -320,7 +339,7 @@ namespace PowerOfOne
             multipleSelected = false;
         }
 
-        public static void Draw(SpriteBatch spriteBatch,bool drawingGui)
+        public static void Draw(SpriteBatch spriteBatch, bool drawingGui)
         {
             if (drawingGui)
             {
@@ -344,21 +363,27 @@ namespace PowerOfOne
                 }
                 else
                 {
-                    
+
                     if (mouse.Position.X < Main.width - currSpriteSheet.Width)
                     {
                         if (keyboard.JustPressed(Keys.D))
                         {
 
                         }
-                        Vector2 mouseSelectedPosition;
-                        mouseSelectedPosition = new Vector2((int)(mouse.RealPosition.X / TileSet.tileWidth), (int)(mouse.RealPosition.Y / TileSet.tileHeight));
-                        mouseSelectedPosition.X *= TileSet.tileWidth;
-                        mouseSelectedPosition.Y *= TileSet.tileHeight;
+                        Vector2 mouseSelectedPosition = GetSnappedMousePosition();
                         spriteBatch.Draw(selectedTileTexture, Main.tilemap.Position + mouseSelectedPosition, markerRect, Color.White, 0, new Vector2(), 1f, SpriteEffects.None, 0.15f);
                     }
                 }
             }
+        }
+
+        private static Vector2 GetSnappedMousePosition()
+        {
+            Vector2 snappedPosition;
+            snappedPosition = new Vector2((int)(mouse.RealPosition.X / TileSet.tileWidth), (int)(mouse.RealPosition.Y / TileSet.tileHeight));
+            snappedPosition.X *= TileSet.tileWidth;
+            snappedPosition.Y *= TileSet.tileHeight;
+            return snappedPosition;
         }
     }
 }

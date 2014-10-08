@@ -64,6 +64,11 @@ namespace PowerOfOne
             zoom.X += setZoom;
         }
 
+        public void VerticalZoom(float setZoom)
+        {
+            zoom.Y += setZoom;
+        }
+
         public Matrix GetTransformation(GraphicsDevice graphicsDevice)
         {
             transform =
