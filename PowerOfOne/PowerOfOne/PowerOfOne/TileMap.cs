@@ -29,9 +29,11 @@ namespace PowerOfOne
             
             for (int x = 0; x < Width; x++)
             {
+
                 for (int y = 0; y < Height; y++)
                 {
                     tileMap[x, y] = new TileCell(7,2);
+
                     if (x == 0 && y == 0)
                     {
                         tileMap[x, y] = new TileCell(3, 2);
@@ -44,6 +46,7 @@ namespace PowerOfOne
                     {
                         tileMap[x, y] = new TileCell(4, 2);
                     }
+
                     if (x == Width - 1 && y == 0)
                     {
                         tileMap[x, y] = new TileCell(5, 2);
@@ -52,6 +55,7 @@ namespace PowerOfOne
                     {
                         tileMap[x, y] = new TileCell(8, 2);
                     }
+
                     if (x == Width - 1 && y == Height -1)
                     {
                         tileMap[x, y] = new TileCell(11, 2);
@@ -60,6 +64,7 @@ namespace PowerOfOne
                     {
                         tileMap[x, y] = new TileCell(10, 2);
                     }
+
                     if (x == 0 && y == Height - 1)
                     {
                         tileMap[x, y] = new TileCell(9, 2);
@@ -73,27 +78,35 @@ namespace PowerOfOne
             sB = spriteBatch;
             for (int x = 0; x < Width; x++)
             {
+
                 for (int y = 0; y < Height; y++)
                 {
                     float defaultDepth = 0.1f + (y / 1000f);
                     Vector2 pos = Position + new Vector2(TileSet.tileWidth * x, TileSet.tileHeight * y);
+
                     if (tileMap[x, y].hasTile)
                     {
                         DrawTile(tileMap[x, y].tile, pos, defaultDepth);
                     }
+
                     int mergeTilesDepth = 1;
+
                     foreach (Tile tile in tileMap[x, y].MergeTiles)
                     {
                         DrawTile(tile, pos, defaultDepth + 0.0001f * mergeTilesDepth);
                         mergeTilesDepth++;
                     }
+
                     int topTilesDepth = 1;
+
                     foreach (Tile tile in tileMap[x, y].TopTiles)
                     {
                         DrawTile(tile, pos-new Vector2(0,TileSet.tileHeight*topTilesDepth), defaultDepth + 0.001f * topTilesDepth+0.1f);
                         topTilesDepth++;
                     }
+
                 }
+
             }
         }
 
@@ -130,6 +143,7 @@ namespace PowerOfOne
             {
                 tileMap[x, y].hasTile = true;
             }
+
             tileMap[x, y].tile = new Tile(TileId, tileSet);
         }
 
@@ -158,9 +172,12 @@ namespace PowerOfOne
         {
             for (int x = 0; x < Width; x++)
             {
+
                 for (int y = 0; y < Height; y++)
                 {
+
                     tileMap[x, y] = new TileCell(7, 2);
+
                     if (x == 0 && y == 0)
                     {
                         tileMap[x, y] = new TileCell(3, 2);
@@ -173,6 +190,7 @@ namespace PowerOfOne
                     {
                         tileMap[x, y] = new TileCell(4, 2);
                     }
+
                     if (x == Width - 1 && y == 0)
                     {
                         tileMap[x, y] = new TileCell(5, 2);
@@ -181,6 +199,7 @@ namespace PowerOfOne
                     {
                         tileMap[x, y] = new TileCell(8, 2);
                     }
+
                     if (x == Width - 1 && y == Height - 1)
                     {
                         tileMap[x, y] = new TileCell(11, 2);
@@ -189,12 +208,15 @@ namespace PowerOfOne
                     {
                         tileMap[x, y] = new TileCell(10, 2);
                     }
+
                     if (x == 0 && y == Height - 1)
                     {
                         tileMap[x, y] = new TileCell(9, 2);
                     }
                 }
+
             }
+
         }
     }
 }

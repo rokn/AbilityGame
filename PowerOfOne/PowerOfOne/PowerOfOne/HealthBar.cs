@@ -33,12 +33,15 @@ namespace PowerOfOne
             {
                 texture = Scripts.LoadTexture(Folder + @"\HealthBar");
             }
+
             Origin = new Vector2(maxWidth / 2, texture.Height / 2);
+
             if (HasBackground)
             {
                 backgroundPosition = Position + Origin;
                 backOrigin = new Vector2(backGroundTexture.Width / 2, backGroundTexture.Height / 2);
             }
+
             source = new Rectangle(0, 0, maxWidth, texture.Height);
         }
 
@@ -52,6 +55,7 @@ namespace PowerOfOne
             {
                 color = colorFrom;
             }
+
             source.Width = (int)(maxWidth * (hp / maxHp));
             this.Position = newPosition;
             backgroundPosition = Position + Origin;
@@ -63,6 +67,7 @@ namespace PowerOfOne
             {
                 spriteBatch.Draw(backGroundTexture, backgroundPosition, null, Color.White, 0, backOrigin, 1f, SpriteEffects.None, depth);
             }
+
             spriteBatch.Draw(texture, Position, source, color, 0, new Vector2(), 1f, SpriteEffects.None, depth + 0.0001f);
         }
     }

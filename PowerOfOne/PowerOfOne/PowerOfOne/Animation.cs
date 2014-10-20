@@ -72,6 +72,7 @@ namespace PowerOfOne
         {
             rotation = Rotation;
             Position = position;
+
             if (isAnimating)
             {
                 
@@ -82,6 +83,7 @@ namespace PowerOfOne
                 else
                 {
                     currFrameSteps = 0;
+
                     if (isSpriteSheet)
                     {
                         if (Index < sourceRectangles.Count - 1)
@@ -103,6 +105,7 @@ namespace PowerOfOne
                     else
                     {
                         currentTexture = texturesList[Index];
+
                         if (Index < texturesList.Count - 1)
                         {
                             Index++;

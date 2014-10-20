@@ -331,15 +331,20 @@ namespace PowerOfOne
             {
                 Directory.CreateDirectory(Main.SavePath);
             }
+
             IFormatter formatter = new BinaryFormatter();
             Stream stream = new FileStream(Main.SaveName + ".bin", FileMode.Create, FileAccess.Write, FileShare.None);
+
             for (int i = 0; i < Main.tilemap.Width; i++)
             {
+
                 for (int b = 0; b < Main.tilemap.Height; b++)
                 {
                     formatter.Serialize(stream, Main.tilemap.tileMap[i, b]);
                 }
+
             }
+
             stream.Close();
 
             Stream secondStream = new FileStream(Main.SaveName + "Rects.bin", FileMode.Create, FileAccess.Write, FileShare.None);
@@ -377,23 +382,22 @@ namespace PowerOfOne
             {
                 if (blocksMode)
                 {
+
                     if (isDraggingRect)
                     {
                         spriteBatch.Draw(pixelBox, rectToBeAdded, rectToBeAdded, Color.Black * 0.5f, 0, new Vector2(), SpriteEffects.None, 0.79f);
                     }
+
                 }
                 else
                 {
 
                     if (mouse.Position.X < Main.width - currSpriteSheet.Width)
-                    {
-                        if (keyboard.JustPressed(Keys.D))
-                        {
-
-                        }
+                    {                        
                         Vector2 mouseSelectedPosition = GetSnappedMousePosition();
                         spriteBatch.Draw(selectedTileTexture, Main.tilemap.Position + mouseSelectedPosition, markerRect, Color.White, 0, new Vector2(), 1f, SpriteEffects.None, 0.15f);
                     }
+
                 }
             }
         }

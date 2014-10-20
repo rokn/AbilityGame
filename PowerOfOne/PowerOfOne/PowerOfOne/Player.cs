@@ -55,19 +55,23 @@ namespace PowerOfOne
         public override void Update(GameTime gameTime)
         {
             CheckForInput();
+
             if (weaponIsOut)
             {
                 if (!hasHit)
                 {
                     CheckIfHasHit();
                 }
+
                 weaponTimer = weaponTimer.Subtract(gameTime.ElapsedGameTime);
+
                 if (weaponTimer.TotalMilliseconds < 0)
                 {
                     StopBasicAttack();
                 }
             }
             attackTimer = attackTimer.Subtract(gameTime.ElapsedGameTime);
+
             if (!canAttack)
             {
                 if (attackTimer.TotalMilliseconds < 0)
@@ -75,6 +79,7 @@ namespace PowerOfOne
                     canAttack = true;
                 }
             }
+
             UpdateCamera();
             base.Update(gameTime);
         }
@@ -92,6 +97,7 @@ namespace PowerOfOne
             {
                 spriteBatch.Draw(weaponTexture, weaponPosition, null, Color.White, weaponRotation, new Vector2(0, weaponTexture.Height / 2), 1f, SpriteEffects.None, 0.3f);
             }
+
             walkingAnimation[currentDirection].Draw(spriteBatch, 0.9f, Color.White * 0.2f);
             base.Draw(spriteBatch);
         }
@@ -100,19 +106,24 @@ namespace PowerOfOne
         {
             foreach (Entity entity in Main.Entities)
             {
+
                 if (entity != this)
                 {
+
                     if (Vector2.Distance(weaponTipPosition, entity.Position) <= weaponTexture.Width)
                     {
                         Vector2 direction = Vector2.Normalize(weaponTipPosition - weaponPosition);
+
                         for (int i = 0; i < weaponTexture.Width; i++)
                         {
+
                             if (entity.rect.Contains(weaponPosition + direction * i))
                             {
                                 entity.TakeDamage(baseDamage);
                                 hasHit = true;
                                 break;
                             }
+
                         }
                     }
                 }
@@ -178,6 +189,7 @@ namespace PowerOfOne
             {
                 Move(Direction.Left, moveSpeed);
             }
+
             if (Scripts.KeyIsPressed(Keys.W))
             {
                 Move(Direction.Up, moveSpeed);
@@ -212,6 +224,7 @@ namespace PowerOfOne
                     ability.ActivateBasicAbility();
                 }
             }
+
             if (Main.mouse.RightClick() || Main.mouse.RightHeld())
             {
                 ability.ActivateSecondaryAbility();

@@ -52,22 +52,24 @@ namespace PowerOfOne
         public override void Update(GameTime gameTime)
         {
             healthBar.Update(Position - healtBarPositionOffset, health, maxHealth);
-            //IdleMovement();
             base.Update(gameTime);
         }
 
         private void IdleMovement()
         {
             int moveRand = rand.Next(100);
+
             if (moveRand <= MoveChance)
             {
                 int moveSteps = rand.Next(20);
                 Direction directionToMove = (Direction)rand.Next(4);
+
                 for (int i = 0; i < moveSteps; i++)
                 {
                     idleMovementSteps.Enqueue(directionToMove);
                 }
             }
+
             if (idleMovementSteps.Count > 0)
             {
                 Move(idleMovementSteps.Dequeue(), moveSpeed);
@@ -84,6 +86,7 @@ namespace PowerOfOne
             {
                 healthBar.Draw(spriteBatch, 0.9f);
             }
+
             base.Draw(spriteBatch);
         }
 

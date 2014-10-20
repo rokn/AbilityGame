@@ -60,16 +60,20 @@ namespace PowerOfOne
                 pushStart += pushDirection * pushSpeed;
                 pushEnd += pushDirection * pushSpeed;
                 pushTime = pushTime.Subtract(gameTime.ElapsedGameTime);
+
                 if(pushTime.TotalMilliseconds<=0)
                 {
                     push = false;
                 }
+
                 for (int i = 0; i < pushCollision.Count; i++)
                 {
                     pushCollision[i] += pushDirection * pushSpeed;
                 }
+
                 CheckPushCollision();
             }
+
             if(pull)
             {
                 //pullTime = pullTime.Subtract(gameTime.ElapsedGameTime);
@@ -77,6 +81,7 @@ namespace PowerOfOne
                 //{
                 //    pull = false;
                 //}
+
                 if(Main.mouse.RightReleased())
                 {
                     pull = false;
@@ -86,6 +91,7 @@ namespace PowerOfOne
                     pullCenter.X = (float)Math.Round(Main.mouse.RealPosition.X);
                     pullCenter.Y = (float)Math.Round(Main.mouse.RealPosition.Y);
                 }
+
                 CheckForPull();
             }
         }
@@ -95,8 +101,10 @@ namespace PowerOfOne
             foreach (Entity entity in Main.Entities)
             {
                 float distance = Vector2.Distance(pullCenter, entity.Position);
+
                 if (distance <= pullRadius)
                 {
+
                     if(distance<pullstrength)
                     {
                         entity.MoveByPosition(pullCenter - entity.Position);
@@ -106,6 +114,7 @@ namespace PowerOfOne
                         Vector2 direction = Vector2.Normalize(pullCenter - entity.Position);
                         entity.MoveByPosition(direction * pullstrength);
                     }
+
                 }
             }
         }
@@ -114,19 +123,21 @@ namespace PowerOfOne
         {
             foreach (Entity entity in Main.Entities)
             {
-                //if (entity != Owner)
-                //{
-                    foreach (Vector2 point in pushCollision)
+
+                foreach (Vector2 point in pushCollision)
+                {
+
+                    if (Vector2.Distance(point, entity.Position) < entity.EntityHeight / 2)
                     {
-                        if (Vector2.Distance(point, entity.Position) < entity.EntityHeight / 2)
+
+                        if (entity.rect.Contains(point))
                         {
-                            if (entity.rect.Contains(point))
-                            {
-                                entity.MoveByPosition(pushDirection * pushSpeed);
-                            }
+                            entity.MoveByPosition(pushDirection * pushSpeed);
                         }
+
                     }
-                //}
+
+                }
             }
         }
 
@@ -144,10 +155,12 @@ namespace PowerOfOne
                 pushEnd = Owner.Position - MathAid.AngleToVector(teleAngle - 90) * pushTexture.Height / 2;
                 pushTime = new TimeSpan(0, 0, 0, 0, pushMiliSeconds);
                 Vector2 startToEndDirection = Vector2.Normalize(pushEnd - pushStart);
+
                 for (int i = 0; i < pushTexture.Height ; i++)
                 {
                     pushCollision.Add(pushStart + startToEndDirection * i);
                 }
+
             }
         }
 
@@ -169,6 +182,7 @@ namespace PowerOfOne
             {
                 spriteBatch.Draw(pushTexture, pushStart, null, Color.White, pushRotation, new Vector2(), 1f, SpriteEffects.None, 1f);
             }
+
             if(pull)
             {
                 spriteBatch.Draw(pullTexture, pullCenter, null, Color.White, 0, pullTextureOrigin, 1f, SpriteEffects.None, 1f);

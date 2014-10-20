@@ -66,11 +66,13 @@ namespace PowerOfOne
         public virtual void Load() 
         {
             walkingAnimation = Scripts.LoadEntityWalkAnimation(walkSpriteSheet);
+
             foreach (KeyValuePair<Direction, Animation> kvp in walkingAnimation)
             {
                 kvp.Value.ChangeAnimatingState(false);
                 kvp.Value.stepsPerFrame = 15 - (int)moveSpeed;
             }
+
             ability.Load();
         }
 
@@ -94,6 +96,7 @@ namespace PowerOfOne
             Vector2 oldPos = position;
             position += movement;
             UpdateRect();
+
             foreach (Rectangle rect in Main.blockRects)
             {
                 if (walkingRect.Intersects(rect))
@@ -103,6 +106,7 @@ namespace PowerOfOne
                     break;
                 }
             }
+
             foreach (Entity entity in Main.Entities)
             {
                 if (entity != this)
@@ -115,6 +119,7 @@ namespace PowerOfOne
                     }
                 }
             }
+
             CheckIfWithinBounds();
             RoundPosition();
         }
@@ -124,11 +129,14 @@ namespace PowerOfOne
             if (canWalk)
             {
                 currentDirection = direction;
+
                 if (!walkingAnimation[currentDirection].isAnimating)
                 {
                     walkingAnimation[currentDirection].ChangeAnimatingState(true);
                 }
+
                 Vector2 previousPos = position;
+
                 switch (direction)
                 {
                     case Direction.Right:
@@ -158,6 +166,7 @@ namespace PowerOfOne
                         break;
                     }
                 }
+
                 foreach (Entity entity in Main.Entities)
                 {
                     if (entity != this)

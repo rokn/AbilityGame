@@ -46,10 +46,12 @@ namespace PowerOfOne
 
         public static void ForEach<T>(this IEnumerable<T> collection,Action<T> action)
         {
+
             foreach (var item in collection)
             {
                 action(item);
             }
+
         }
 
         public static void VoidRemove<T>(this List<T> list,T item)
@@ -66,12 +68,14 @@ namespace PowerOfOne
         {
             int rectsPerRow =  texture.Width / rectWidth;
             List<Rectangle> result = new List<Rectangle>();
+
             for (int i = startingId; i <= endId; i++)
             {
                 int sourceY = i / rectsPerRow;
                 int sourceX = i - sourceY * rectsPerRow;
                 result.Add(new Rectangle(sourceX * rectWidth, sourceY * rectHeight, rectWidth, rectHeight));
             }
+
             return result;
         }
 
@@ -90,8 +94,10 @@ namespace PowerOfOne
 
             for (int x = 0; x < intersectRect.Width; x++)
             {
+
                 for (int y = 0; y < intersectRect.Height; y++)
                 {
+
                     if (destructionTextureData[(startPos1.X + x) + (startPos1.Y + y) * destructionTexture.Width].A != 0)
                     {
                         int X = startPos2.X + x;
@@ -101,7 +107,9 @@ namespace PowerOfOne
                             return true;
                         }
                     }
+
                 }
+
             }
             return false;
         }

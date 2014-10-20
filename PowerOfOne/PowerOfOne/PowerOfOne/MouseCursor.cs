@@ -220,6 +220,7 @@ namespace PowerOfOne
         {
             if (clickedonce)
             {
+
                 if (currentmouse.LeftButton == ButtonState.Pressed
                 && oldmouse.LeftButton == ButtonState.Released)
                 {

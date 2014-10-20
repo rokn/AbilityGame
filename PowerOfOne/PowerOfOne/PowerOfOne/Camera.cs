@@ -43,6 +43,7 @@ namespace PowerOfOne
         public Vector2 Position
         {
             get { return pos - zeroPos; }
+
             set 
             { 
                 pos = value;

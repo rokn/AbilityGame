@@ -96,7 +96,7 @@ namespace PowerOfOne
                 Entities.Add(new Enemy(new Vector2(1000, 800), rand.Next(EnemiesCount)));
                 Entities.Add(new Enemy(new Vector2(1100, 800), rand.Next(EnemiesCount)));
             }
-            {
+            else {
                 currTileset = 0;
             }
             LoadLevel();
@@ -109,6 +109,7 @@ namespace PowerOfOne
             mouseTexture = Scripts.LoadTexture("Mouse");
             BoundingBox = Scripts.LoadTexture("WhitePixel");
             Font = Content.Load<SpriteFont>("Font");
+
             for (int i = 0; i < TileSetsCount; i++)
             {
                 TileSet.SpriteSheet.Add(Scripts.LoadTexture(@"TileSets\Tileset_ (" + i.ToString()+")"));
@@ -132,6 +133,7 @@ namespace PowerOfOne
             if (this.IsActive)
             {
                 UpdateInput(gameTime);
+
                 if (keyboard.JustPressed(Keys.Escape))
                 {
                     exit = true;
@@ -146,6 +148,7 @@ namespace PowerOfOne
                     EditUpdate();
                     UpdateCamera();
                 }
+
                 //if (Main.keyboard.IsHeld(Keys.LeftControl))
                 //{
                 //    if (Main.keyboard.JustPressed(Keys.L))
@@ -177,7 +180,9 @@ namespace PowerOfOne
             {
                 EditorGUI.Draw(spriteBatch,false);
             }
+
             DrawObject(tilemap);
+
             if (showBoundingBoxes)
             {
                 foreach (var rect in blockRects)
@@ -186,13 +191,13 @@ namespace PowerOfOne
                 }
             }
 
-
             spriteBatch.End();
 
 
             spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend);
 
             DrawMouse();
+
             if (inEditMode)
             {
                 EditorGUI.Draw(spriteBatch,true);
@@ -204,6 +209,7 @@ namespace PowerOfOne
         }
 
         #region HelperMethods
+
         private void DrawMouse()
         {
             spriteBatch.Draw(mouseTexture, mouse.Position, null, Color.Red, 0, new Vector2(), 1f, SpriteEffects.None, 1f);
@@ -230,6 +236,7 @@ namespace PowerOfOne
         {
             obj.Load();
         }
+
         private void UpdateObject(dynamic obj)
         {
             obj.Update(gameTimeRef);
@@ -242,14 +249,17 @@ namespace PowerOfOne
             {
                 camera.Move(new Vector2(-8, 0));
             }
+
             if (Scripts.KeyIsPressed(Keys.NumPad6))
             {
                 camera.Move(new Vector2(8, 0));
             }
+
             if (Scripts.KeyIsPressed(Keys.NumPad8))
             {
                 camera.Move(new Vector2(0, -8));
             }
+
             if (Scripts.KeyIsPressed(Keys.NumPad2))
             {
                 camera.Move(new Vector2(0, 8));
@@ -262,6 +272,7 @@ namespace PowerOfOne
             {
                 gameTimeRef = gameTime;
             }
+
             Projectiles.ForEach(UpdateObject);
             Entities.ForEach(UpdateObject);
             RemoveEntities();
@@ -280,6 +291,7 @@ namespace PowerOfOne
         private void EditUpdate()
         {
             EditorGUI.Update();
+
             if (keyboard.JustPressed(Keys.Add))
             {
                 if (currTileset < TileSetsCount - 1)
@@ -292,6 +304,7 @@ namespace PowerOfOne
                 }
                 EditorGUI.Initialize();
             }
+
             if (keyboard.JustPressed(Keys.Subtract))
             {
                 if (currTileset > 0)
@@ -312,8 +325,10 @@ namespace PowerOfOne
             {
                 IFormatter formatter = new BinaryFormatter();
                 Stream stream = new FileStream(SaveName + ".bin", FileMode.Open, FileAccess.Read, FileShare.Read);
+
                 for (int i = 0; i < Main.tilemap.Width; i++)
                 {
+
                     for (int b = 0; b < Main.tilemap.Height; b++)
                     {
                         try
@@ -325,7 +340,9 @@ namespace PowerOfOne
                             break;
                         }
                     }
+
                 }
+
                 stream.Close();
 
                 Stream secondStream = new FileStream(SaveName + "Rects.bin", FileMode.Open, FileAccess.Read, FileShare.Read);
@@ -342,6 +359,7 @@ namespace PowerOfOne
         private void DrawEntity(Entity ent)
         {
             Rectangle screenRect = new Rectangle((int)camera.Position.X, (int)camera.Position.Y, width, height);
+
             if (ent.rect.Intersects(screenRect))
             {
                 ent.Draw(spriteBatch);
