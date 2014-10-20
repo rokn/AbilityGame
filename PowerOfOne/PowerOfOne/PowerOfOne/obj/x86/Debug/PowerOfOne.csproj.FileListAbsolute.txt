@@ -134,3 +134,8 @@ D:\Games\Dropbox\GitHub\PowerOfOne\PowerOfOne\PowerOfOne\obj\x86\Debug\PowerOfOn
 D:\Games\Dropbox\GitHub\PowerOfOne\PowerOfOne\PowerOfOne\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
 D:\Games\Dropbox\GitHub\PowerOfOne\PowerOfOne\PowerOfOne\obj\x86\Debug\PowerOfOne.exe
 D:\Games\Dropbox\GitHub\PowerOfOne\PowerOfOne\PowerOfOne\obj\x86\Debug\PowerOfOne.pdb
+D:\Games\Dropbox\GitHub\PowerOfOne\PowerOfOne\PowerOfOne\bin\x86\Debug\Content\TileSets\Tileset_ (42).xnb
+D:\Games\Dropbox\GitHub\PowerOfOne\PowerOfOne\PowerOfOne\bin\x86\Debug\PowerOfOne.exe.manifest
+D:\Games\Dropbox\GitHub\PowerOfOne\PowerOfOne\PowerOfOne\bin\x86\Debug\PowerOfOne.application
+D:\Games\Dropbox\GitHub\PowerOfOne\PowerOfOne\PowerOfOne\obj\x86\Debug\PowerOfOne.exe.manifest
+D:\Games\Dropbox\GitHub\PowerOfOne\PowerOfOne\PowerOfOne\obj\x86\Debug\PowerOfOne.application

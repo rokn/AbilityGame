@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -13,11 +13,10 @@ namespace PowerOfOne
     public class Main : Microsoft.Xna.Framework.Game
     {
 
-        private const int TileSetsCount = 42;
-        public const bool inEditMode = true;
-        public const bool showBoundingBoxes = true;
-        public const string SaveName = "Level1";
-        private const int enemiesCount = 7;
+        private const int TileSetsCount = 43;
+        public const bool inEditMode = false;
+        public const bool showBoundingBoxes = false;
+        private const int EnemiesCount = 7;
         private const int levelWidth1 = 100;
         private const int levelHeight1 = 60;
 
@@ -44,6 +43,22 @@ namespace PowerOfOne
         //Variables for edit mode :
         public static int currTileset;
 
+        public static string SavePath
+        {
+            get
+            {
+                return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "PowerOfOne");
+            }
+        }
+
+        public static string SaveName
+        {
+            get
+            {
+                return SavePath + @"\Level1";
+            }
+        }
+
         public Main()
         {
             Components.Add(new FrameRateCounter(this));
@@ -60,7 +75,6 @@ namespace PowerOfOne
             exit = false;
             camera = new Camera();
             tilemap = new TileMap(Vector2.Zero,levelWidth1, levelHeight1);
-            LoadLevel();
             TileSet.SpriteSheet = new List<Texture2D>();
             TileSet.tileHeight = 32;
             TileSet.tileWidth = 32;
@@ -71,21 +85,21 @@ namespace PowerOfOne
                 Projectiles = new List<Projectile>();
                 Entities = new List<Entity>();
                 removeEntities = new List<Entity>();
-                player = new Player(new Vector2(500, 500));
+                player = new Player(new Vector2(370, 1612));
                 Entities.Add(player);
                 Random rand = new Random();
-                Entities.Add(new Enemy(new Vector2(500, 800), rand.Next(enemiesCount)));
-                Entities.Add(new Enemy(new Vector2(600, 800), rand.Next(enemiesCount)));
-                Entities.Add(new Enemy(new Vector2(700, 800), rand.Next(enemiesCount)));
-                Entities.Add(new Enemy(new Vector2(800, 800), rand.Next(enemiesCount)));
-                Entities.Add(new Enemy(new Vector2(900, 800), rand.Next(enemiesCount)));
-                Entities.Add(new Enemy(new Vector2(1000, 800), rand.Next(enemiesCount)));
-                Entities.Add(new Enemy(new Vector2(1100, 800), rand.Next(enemiesCount)));
+                Entities.Add(new Enemy(new Vector2(500, 800), rand.Next(EnemiesCount)));
+                Entities.Add(new Enemy(new Vector2(600, 800), rand.Next(EnemiesCount)));
+                Entities.Add(new Enemy(new Vector2(700, 800), rand.Next(EnemiesCount)));
+                Entities.Add(new Enemy(new Vector2(800, 800), rand.Next(EnemiesCount)));
+                Entities.Add(new Enemy(new Vector2(900, 800), rand.Next(EnemiesCount)));
+                Entities.Add(new Enemy(new Vector2(1000, 800), rand.Next(EnemiesCount)));
+                Entities.Add(new Enemy(new Vector2(1100, 800), rand.Next(EnemiesCount)));
             }
             {
                 currTileset = 0;
             }
-
+            LoadLevel();
             base.Initialize();
         }
 
@@ -157,7 +171,7 @@ namespace PowerOfOne
             if (!inEditMode)
             {
                 Projectiles.ForEach(DrawObject);
-                Entities.ForEach(DrawObject);
+                Entities.ForEach(DrawEntity);
             }
             else
             {
@@ -294,32 +308,44 @@ namespace PowerOfOne
 
         private static void LoadLevel()
         {
-            IFormatter formatter = new BinaryFormatter();
-            Stream stream = new FileStream(SaveName + ".bin", FileMode.Open, FileAccess.Read, FileShare.Read);
-            for (int i = 0; i < Main.tilemap.Width; i++)
+            if (File.Exists(SaveName + ".bin"))
             {
-                for (int b = 0; b < Main.tilemap.Height; b++)
+                IFormatter formatter = new BinaryFormatter();
+                Stream stream = new FileStream(SaveName + ".bin", FileMode.Open, FileAccess.Read, FileShare.Read);
+                for (int i = 0; i < Main.tilemap.Width; i++)
                 {
-                    try
+                    for (int b = 0; b < Main.tilemap.Height; b++)
                     {
-                        tilemap.tileMap[i, b] = (TileCell)formatter.Deserialize(stream);
-                    }
-                    catch(SerializationException)
-                    {
-                        break;
+                        try
+                        {
+                            tilemap.tileMap[i, b] = (TileCell)formatter.Deserialize(stream);
+                        }
+                        catch (SerializationException)
+                        {
+                            break;
+                        }
                     }
                 }
-            }
-            stream.Close();
+                stream.Close();
 
-            Stream secondStream = new FileStream(SaveName + "Rects.bin", FileMode.Open, FileAccess.Read, FileShare.Read);
-            blockRects = (List<Rectangle>)formatter.Deserialize(secondStream);
-            stream.Close();
+                Stream secondStream = new FileStream(SaveName + "Rects.bin", FileMode.Open, FileAccess.Read, FileShare.Read);
+                blockRects = (List<Rectangle>)formatter.Deserialize(secondStream);
+                stream.Close();
+            }
         }
 
         private void DrawObject(dynamic obj)
         {
             obj.Draw(spriteBatch);
+        }
+
+        private void DrawEntity(Entity ent)
+        {
+            Rectangle screenRect = new Rectangle((int)camera.Position.X, (int)camera.Position.Y, width, height);
+            if (ent.rect.Intersects(screenRect))
+            {
+                ent.Draw(spriteBatch);
+            }
         }
         #endregion
     }

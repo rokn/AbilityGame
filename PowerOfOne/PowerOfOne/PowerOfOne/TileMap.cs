@@ -97,9 +97,21 @@ namespace PowerOfOne
             }
         }
 
+        private bool CheckIsTileInView(float x, float y)
+        {
+            bool left = x + TileSet.tileWidth > Main.camera.Position.X;
+            bool top = y + TileSet.tileHeight > Main.camera.Position.Y;
+            bool right = x < Main.camera.Position.X + Main.width;
+            bool down = y < Main.camera.Position.Y + Main.height;
+            return left && top && right && down;
+        }
+
         private void DrawTile(Tile tile,Vector2 pos,float depth)
         {
-            sB.Draw(TileSet.SpriteSheet[tile.tileSet], pos, TileSet.GetSourceRectangle(tile), Color.White, 0, new Vector2(), 1f, SpriteEffects.None, depth);
+            if (CheckIsTileInView(pos.X, pos.Y))
+            {
+                sB.Draw(TileSet.SpriteSheet[tile.tileSet], pos, TileSet.GetSourceRectangle(tile), Color.White, 0, new Vector2(), 1f, SpriteEffects.None, depth);
+            }
         }
 
         public void AddMergeTile(int x, int y, int TileId, int tileSet)

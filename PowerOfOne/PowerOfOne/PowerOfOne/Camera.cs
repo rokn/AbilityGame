@@ -42,7 +42,7 @@ namespace PowerOfOne
 
         public Vector2 Position
         {
-            get { return pos; }
+            get { return pos - zeroPos; }
             set 
             { 
                 pos = value;
@@ -81,7 +81,7 @@ namespace PowerOfOne
 
         public Vector2 GetRealMousePosition()
         {
-            return Main.mouse.Position + (Position - zeroPos);
+            return Main.mouse.Position + (Position);
         }
     }
 }

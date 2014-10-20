@@ -264,29 +264,46 @@ namespace PowerOfOne
             if (multipleSelected)
             {
                 int tilesPerRow = currSpriteSheet.Width / TileSet.tileWidth;
+
                 for (int i = 0; i < multipleTileX + 1; i++)
                 {
                     int tileId = tilesPerRow * (currentTileY + multipleTileY) + currentTileX + i;
-                    Main.tilemap.AddMergeTile(x + i, y + multipleTileY, tileId, Main.currTileset);
+
+                    if(CheckIfInTileIsRange(x + i, y + multipleTileY))
+                        Main.tilemap.AddMergeTile(x + i, y + multipleTileY, tileId, Main.currTileset);
+
                     for (int b = 1; b <= multipleTileY; b++)
                     {
                         int topTileId = tilesPerRow * (currentTileY + multipleTileY - b) + currentTileX + i;
-                        Main.tilemap.AddTopTile(x + i, y + multipleTileY, topTileId, Main.currTileset);
+
+                        if(CheckIfInTileIsRange(x + i, y + multipleTileY))
+                            Main.tilemap.AddTopTile(x + i, y + multipleTileY, topTileId, Main.currTileset);
                     }
                 }
             }
+
             else if (keyboard.IsHeld(Keys.LeftControl))
             {
-                Main.tilemap.AddMergeTile(x, y, selectedTileId, Main.currTileset);
+                if(CheckIfInTileIsRange(x,y))
+                    Main.tilemap.AddMergeTile(x, y, selectedTileId, Main.currTileset);
             }
+
             else if (keyboard.IsHeld(Keys.LeftShift))
             {
-                Main.tilemap.AddTopTile(x, y, selectedTileId, Main.currTileset);
+                if (CheckIfInTileIsRange(x, y))
+                    Main.tilemap.AddTopTile(x, y, selectedTileId, Main.currTileset);
             }
+
             else
             {
-                Main.tilemap.ChangeBaseTile(x, y, selectedTileId, Main.currTileset);
+                if (CheckIfInTileIsRange(x, y))
+                    Main.tilemap.ChangeBaseTile(x, y, selectedTileId, Main.currTileset);
             }
+        }
+
+        private static bool CheckIfInTileIsRange(int x, int y)
+        {
+            return x > 0 && y > 0 && x < Main.tilemap.Width && y < Main.tilemap.Height;
         }
 
         private static void RemoveTile()
@@ -310,6 +327,10 @@ namespace PowerOfOne
 
         private static void Save()
         {
+            if (!Directory.Exists(Main.SavePath))
+            {
+                Directory.CreateDirectory(Main.SavePath);
+            }
             IFormatter formatter = new BinaryFormatter();
             Stream stream = new FileStream(Main.SaveName + ".bin", FileMode.Create, FileAccess.Write, FileShare.None);
             for (int i = 0; i < Main.tilemap.Width; i++)
@@ -350,7 +371,7 @@ namespace PowerOfOne
                 spriteBatch.DrawString(Main.Font, "Mouse Real Position : " + mouse.RealPosition, new Vector2(0, 60), Color.Black, 0, new Vector2(), 1f, SpriteEffects.None, 0.8f);
                 spriteBatch.DrawString(Main.Font, "Camera Position : " + (Main.camera.pos - Main.camera.zeroPos).ToString(), new Vector2(0, 90), Color.Black, 0, new Vector2(), 1f, SpriteEffects.None, 0.8f);
                 spriteBatch.DrawString(Main.Font, "CT: " + Main.currTileset.ToString(), backgroundPosition, Color.Black, 0, new Vector2(), 1f, SpriteEffects.None, 0.8f);
-                spriteBatch.Draw(selectedTileTexture, markerPosition, markerRect, Color.White, 0, new Vector2(), 1f, SpriteEffects.None, 0.9f);
+                spriteBatch.Draw(selectedTileTexture, markerPosition, markerRect, Color.White, 0, new Vector2(), 1f, SpriteEffects.None, 0.9999f);
             }
             else
             {

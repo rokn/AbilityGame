@@ -559,6 +559,15 @@
       <Output>D:\Games\Dropbox\GitHub\PowerOfOne\PowerOfOne\PowerOfOne\bin\x86\Debug\Content\Abilities\Telekinesis\Pull.xnb</Output>
       <Time>2014-10-07T11:24:19+03:00</Time>
     </Item>
+    <Item>
+      <Source>TileSets\Tileset_ (42).png</Source>
+      <Name>TileSets\Tileset_ (42)</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Games\Dropbox\GitHub\PowerOfOne\PowerOfOne\PowerOfOne\bin\x86\Debug\Content\TileSets\Tileset_ (42).xnb</Output>
+      <Time>2014-10-08T23:45:35+03:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <ContentProjectGUID Null="true" />
