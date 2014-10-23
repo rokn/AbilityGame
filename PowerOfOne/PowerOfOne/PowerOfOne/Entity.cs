@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Collections.Generic;
 
 namespace PowerOfOne
 {
@@ -11,26 +11,26 @@ namespace PowerOfOne
 
         public int EntityHeight { get; set; }
 
-        protected int weaponTime;
-        protected int attackSpeed;
-        public Dictionary<Direction, Animation> walkingAnimation;
-        protected Vector2 position;
-        protected Vector2 walkingOrigin;
-        protected Vector2 origin;
-        public Direction currentDirection;
-        protected float moveSpeed;
-        protected Rectangle walkingRect;
-        protected bool canWalk;
+        private float defaultSpeed;
         protected bool canAttack;
-        protected Texture2D walkSpriteSheet;
-        public Rectangle rect;
+        protected bool canWalk;
+        protected float moveSpeed;
+        protected float size;
+        protected int attackSpeed;
+        protected int baseDamage;
         protected int health;
         protected int maxHealth;
-        public float defaultDepth;
-        protected int baseDamage;
+        protected int weaponTime;
+        protected Rectangle walkingRect;
+        protected Texture2D walkSpriteSheet;
+        protected Vector2 origin;
+        protected Vector2 position;
+        protected Vector2 walkingOrigin;
         public Ability ability;
-        protected float size;
-        private float defaultSpeed;
+        public Dictionary<Direction, Animation> walkingAnimation;
+        public Direction currentDirection;
+        public float defaultDepth;
+        public Rectangle rect;
 
         public Entity(Vector2 pos)
         {
@@ -59,7 +59,7 @@ namespace PowerOfOne
             }
         }
 
-        public float Size 
+        public float Size
         {
             get
             {
@@ -90,15 +90,15 @@ namespace PowerOfOne
 
         protected virtual void Initialize()
         {
-            walkingOrigin = new Vector2(EntityWidth / 2, EntityHeight/2 - Math.Min(TileSet.tileHeight,EntityHeight/2));
+            walkingOrigin = new Vector2(EntityWidth / 2, EntityHeight / 2 - Math.Min(TileSet.tileHeight, EntityHeight / 2));
             origin = new Vector2(EntityWidth / 2, EntityHeight / 2);
-            walkingRect = new Rectangle((int)position.X - (int)walkingOrigin.X, (int)position.Y - (int)walkingOrigin.Y, EntityWidth, EntityHeight -24);
+            walkingRect = new Rectangle((int)position.X - (int)walkingOrigin.X, (int)position.Y - (int)walkingOrigin.Y, EntityWidth, EntityHeight - 24);
             rect = new Rectangle((int)position.X - (int)origin.X, (int)position.Y - (int)origin.Y, EntityWidth, EntityHeight);
             UpdateRect();
             defaultSpeed = moveSpeed;
         }
 
-        public virtual void Load() 
+        public virtual void Load()
         {
             walkingAnimation = Scripts.LoadEntityWalkAnimation(walkSpriteSheet);
 
@@ -111,19 +111,18 @@ namespace PowerOfOne
             ability.Load();
         }
 
-        public virtual void Update(GameTime gameTime) 
+        public virtual void Update(GameTime gameTime)
         {
             walkingAnimation[currentDirection].Update(position, 0);
             ability.Update(gameTime);
         }
 
-        public virtual void Draw(SpriteBatch spriteBatch) 
+        public virtual void Draw(SpriteBatch spriteBatch)
         {
-            
             walkingAnimation[currentDirection].Draw(spriteBatch, size, defaultDepth + (0.000001f * position.Y), Color.White);
             ability.Draw(spriteBatch);
 
-            if(Main.showBoundingBoxes)
+            if (Main.showBoundingBoxes)
                 spriteBatch.Draw(Main.BoundingBox, rect, null, Color.Black * 0.3f, 0, new Vector2(), SpriteEffects.None, defaultDepth + (0.000001f * position.Y) + 0.000001f);
         }
 
@@ -160,7 +159,7 @@ namespace PowerOfOne
             RoundPosition();
         }
 
-        protected void Move(Direction direction, float moveDistance)
+        protected virtual void Move(Direction direction, float moveDistance)
         {
             if (canWalk)
             {
@@ -179,14 +178,17 @@ namespace PowerOfOne
                         position.X += moveDistance;
                         UpdateRect();
                         break;
+
                     case Direction.Left:
                         position.X -= moveDistance;
                         UpdateRect();
                         break;
+
                     case Direction.Up:
                         position.Y -= moveDistance;
                         UpdateRect();
                         break;
+
                     case Direction.Down:
                         position.Y += moveDistance;
                         UpdateRect();
@@ -195,7 +197,7 @@ namespace PowerOfOne
 
                 if (!noClip)
                 {
-                    if(CheckForCollision())
+                    if (CheckForCollision())
                     {
                         position = previousPos;
                         UpdateRect();
@@ -287,7 +289,7 @@ namespace PowerOfOne
         public virtual void TakeDamage(int damageToBeTaken)
         {
             health -= damageToBeTaken;
-            if(health<0)
+            if (health < 0)
             {
                 Main.removeEntities.Add(this);
             }
@@ -295,7 +297,7 @@ namespace PowerOfOne
 
         public void ChangeSpeed(float newSpeed)
         {
-            if(newSpeed >20)
+            if (newSpeed > 20)
             {
                 newSpeed = 20;
             }
@@ -305,6 +307,14 @@ namespace PowerOfOne
             foreach (KeyValuePair<Direction, Animation> kvp in walkingAnimation)
             {
                 kvp.Value.stepsPerFrame = 15 - (int)moveSpeed;
+            }
+        }
+
+        protected void StopAnimation(Dictionary<Direction,Animation> animation)
+        {
+            foreach (KeyValuePair<Direction, Animation> kvp in animation)
+            {
+                kvp.Value.ChangeAnimatingState(false);
             }
         }
     }

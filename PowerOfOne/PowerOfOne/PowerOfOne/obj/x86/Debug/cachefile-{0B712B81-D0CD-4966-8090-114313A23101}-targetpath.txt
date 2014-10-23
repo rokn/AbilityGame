@@ -61,3 +61,4 @@ Content\Enemies\Enemy_5.xnb
 Content\Enemies\Enemy_4.xnb
 Content\Abilities\Telekinesis\Pull.xnb
 Content\TileSets\Tileset_ (42).xnb
+Content\Player\Fly.xnb

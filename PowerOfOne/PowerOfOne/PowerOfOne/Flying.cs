@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+
 namespace PowerOfOne
 {
     public class Flying : Passive
@@ -18,7 +19,7 @@ namespace PowerOfOne
 
         public override void Update(GameTime gameTime)
         {
-            if(Activated)
+            if (Activated)
             {
                 Owner.walkingAnimation[Owner.currentDirection].ChangeAnimatingState(false);
             }

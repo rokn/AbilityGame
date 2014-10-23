@@ -1,36 +1,37 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 
 namespace PowerOfOne
 {
     public class Telekinesis : Ability
     {
-        private Texture2D pushTexture;
-        private Vector2 pushDirection;
-        private Vector2 pushStart;
-        private Vector2 pushEnd;
-        private float pushSpeed;
+        private bool pull;
         private bool push;
+        private float pullstrength;
         private float pushRotation;
-        private TimeSpan pushTime;
+        private float pushSpeed;
+        private int pullMiliSeconds;
+        private int pullRadius;
         private int pushMiliSeconds;
         private List<Vector2> pushCollision;
-        private int pullRadius;
-        private bool pull;
-        private float pullstrength;
+        private Texture2D pullTexture;
+        private Texture2D pushTexture;
         private TimeSpan pullTime;
-        private int pullMiliSeconds;
+        private TimeSpan pushTime;
         private Vector2 pullCenter;
         private Vector2 pullTextureOrigin;
-        private Texture2D pullTexture;
+        private Vector2 pushDirection;
+        private Vector2 pushEnd;
+        private Vector2 pushStart;
 
-        public Telekinesis(Entity owner):base(owner)
+        public Telekinesis(Entity owner)
+            : base(owner)
         {
             push = false;
-            pushSpeed = 15f;
-            pullstrength = 10f;
+            pushSpeed = 20f;
+            pullstrength = 12f;
             pushMiliSeconds = 400;
             pullMiliSeconds = 200;
             pushCollision = new List<Vector2>();
@@ -55,13 +56,13 @@ namespace PowerOfOne
 
         public override void Update(GameTime gameTime)
         {
-            if(push)
+            if (push)
             {
                 pushStart += pushDirection * pushSpeed;
                 pushEnd += pushDirection * pushSpeed;
                 pushTime = pushTime.Subtract(gameTime.ElapsedGameTime);
 
-                if(pushTime.TotalMilliseconds<=0)
+                if (pushTime.TotalMilliseconds <= 0)
                 {
                     push = false;
                 }
@@ -74,7 +75,7 @@ namespace PowerOfOne
                 CheckPushCollision();
             }
 
-            if(pull)
+            if (pull)
             {
                 //pullTime = pullTime.Subtract(gameTime.ElapsedGameTime);
                 //if(pullTime.TotalMilliseconds <=0)
@@ -82,7 +83,7 @@ namespace PowerOfOne
                 //    pull = false;
                 //}
 
-                if(Main.mouse.RightReleased())
+                if (Main.mouse.RightReleased())
                 {
                     pull = false;
                 }
@@ -104,8 +105,7 @@ namespace PowerOfOne
 
                 if (distance <= pullRadius)
                 {
-
-                    if(distance<pullstrength)
+                    if (distance < pullstrength)
                     {
                         entity.MoveByPosition(pullCenter - entity.Position);
                     }
@@ -114,7 +114,6 @@ namespace PowerOfOne
                         Vector2 direction = Vector2.Normalize(pullCenter - entity.Position);
                         entity.MoveByPosition(direction * pullstrength);
                     }
-
                 }
             }
         }
@@ -123,20 +122,15 @@ namespace PowerOfOne
         {
             foreach (Entity entity in Main.Entities)
             {
-
                 foreach (Vector2 point in pushCollision)
                 {
-
                     if (Vector2.Distance(point, entity.Position) < entity.EntityHeight / 2)
                     {
-
                         if (entity.rect.Contains(point))
                         {
                             entity.MoveByPosition(pushDirection * pushSpeed);
                         }
-
                     }
-
                 }
             }
         }
@@ -156,13 +150,12 @@ namespace PowerOfOne
                 pushTime = new TimeSpan(0, 0, 0, 0, pushMiliSeconds);
                 Vector2 startToEndDirection = Vector2.Normalize(pushEnd - pushStart);
 
-                for (int i = 0; i < pushTexture.Height ; i++)
+                for (int i = 0; i < pushTexture.Height; i++)
                 {
                     pushCollision.Add(pushStart + startToEndDirection * i);
                 }
 
                 Owner.DirectTowardsRotation(MathHelper.ToDegrees(teleAngle));
-
             }
         }
 
@@ -174,7 +167,7 @@ namespace PowerOfOne
                 pullTime = new TimeSpan(0, 0, 0, 0, pullMiliSeconds);
                 pullCenter.X = (float)Math.Round(Main.mouse.RealPosition.X);
                 pullCenter.Y = (float)Math.Round(Main.mouse.RealPosition.Y);
-                pullRadius = pullTexture.Width/2;
+                pullRadius = pullTexture.Width / 2;
             }
         }
 
@@ -185,7 +178,7 @@ namespace PowerOfOne
                 spriteBatch.Draw(pushTexture, pushStart, null, Color.White, pushRotation, new Vector2(), 1f, SpriteEffects.None, 1f);
             }
 
-            if(pull)
+            if (pull)
             {
                 spriteBatch.Draw(pullTexture, pullCenter, null, Color.White, 0, pullTextureOrigin, 1f, SpriteEffects.None, 1f);
             }

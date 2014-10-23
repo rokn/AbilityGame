@@ -1,5 +1,4 @@
-﻿
-namespace PowerOfOne
+﻿namespace PowerOfOne
 {
     public class Speed : Passive
     {

@@ -568,6 +568,15 @@
       <Output>D:\Games\Dropbox\GitHub\PowerOfOne\PowerOfOne\PowerOfOne\bin\x86\Debug\Content\TileSets\Tileset_ (42).xnb</Output>
       <Time>2014-10-08T23:45:35+03:00</Time>
     </Item>
+    <Item>
+      <Source>Player\Fly.png</Source>
+      <Name>Player\Fly</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Games\Dropbox\GitHub\PowerOfOne\PowerOfOne\PowerOfOne\bin\x86\Debug\Content\Player\Fly.xnb</Output>
+      <Time>2014-10-23T10:03:35+03:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <ContentProjectGUID Null="true" />

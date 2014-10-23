@@ -1,8 +1,10 @@
 ﻿#region Using Statements
-using System.Collections.Generic;
+
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-#endregion
+using System.Collections.Generic;
+
+#endregion Using Statements
 
 namespace PowerOfOne
 {
@@ -12,20 +14,21 @@ namespace PowerOfOne
     /// </summary>
     public class Animation
     {
-
         #region Vars
+
+        public int FrameCount;
+        public bool looping, isAnimating;
         public int stepsPerFrame, Index, currFrameSteps;
-        private List<Rectangle> sourceRectangles;
-        private Texture2D sourceSpriteSheet, currentTexture;
-        private List<Texture2D> texturesList;
         private bool isSpriteSheet;
         private Vector2 Position, Origin;
         private float rotation;
-        public bool looping, isAnimating;
-        public int FrameCount;
-        #endregion
+        private List<Rectangle> sourceRectangles;
+        private Texture2D sourceSpriteSheet, currentTexture;
+        private List<Texture2D> texturesList;
+        #endregion Vars
 
         #region Constructors
+
         public Animation(List<Rectangle> rectangleList, Texture2D spriteSheet, int StepsPerFrame, bool Looping)
         {
             sourceRectangles = rectangleList;
@@ -39,6 +42,7 @@ namespace PowerOfOne
             isAnimating = true;
             FrameCount = sourceRectangles.Count;
         }
+
         public Animation(List<Texture2D> texturesList, int StepsPerFrame, bool Looping)
         {
             this.texturesList = texturesList;
@@ -51,9 +55,9 @@ namespace PowerOfOne
             currentTexture = texturesList[Index];
             looping = Looping;
             FrameCount = texturesList.Count;
-
         }
-        #endregion
+
+        #endregion Constructors
 
         public void ChangeAnimatingState(bool IsAnimating)
         {
@@ -62,12 +66,25 @@ namespace PowerOfOne
             isAnimating = IsAnimating;
         }
 
+        public void Draw(SpriteBatch spriteBatch, float size, float depth, Color color)
+        {
+            if (isSpriteSheet)
+            {
+                spriteBatch.Draw(sourceSpriteSheet, Position, sourceRectangles[Index], color, rotation, Origin, size, SpriteEffects.None, depth);
+            }
+            else
+            {
+                spriteBatch.Draw(currentTexture, Position, null, color, rotation, Origin, size, SpriteEffects.None, depth);
+            }
+        }
+
         public void SetPosition(Vector2 position)
         {
             Position = position;
         }
 
         #region Update
+
         public void Update(Vector2 position, float Rotation)
         {
             rotation = Rotation;
@@ -75,7 +92,6 @@ namespace PowerOfOne
 
             if (isAnimating)
             {
-                
                 if (currFrameSteps < stepsPerFrame)
                 {
                     currFrameSteps++;
@@ -125,18 +141,7 @@ namespace PowerOfOne
                 }
             }
         }
-        #endregion;
 
-        public void Draw(SpriteBatch spriteBatch,float size, float depth,Color color)
-        {
-            if (isSpriteSheet)
-            {
-                spriteBatch.Draw(sourceSpriteSheet, Position, sourceRectangles[Index], color, rotation, Origin, size, SpriteEffects.None, depth);
-            }
-            else
-            {
-                spriteBatch.Draw(currentTexture, Position, null, color, rotation, Origin, size, SpriteEffects.None, depth);
-            }
-        }
+        #endregion Update
     }
 }

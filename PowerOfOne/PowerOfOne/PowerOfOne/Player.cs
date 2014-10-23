@@ -3,25 +3,22 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
-using System.Timers;
 
 namespace PowerOfOne
 {
     public class Player : Entity
     {
+        private bool hasHit;
+        private bool weaponIsOut;
+        private Dictionary<Direction, Animation> flyingAnimation;
+        private float weaponRotation;
+        private Passive passive;
+        private Texture2D flySpritesheet;
+        private Texture2D weaponTexture;
+        private TimeSpan attackTimer;
+        private TimeSpan weaponTimer;
         private Vector2 weaponPosition;
         private Vector2 weaponTipPosition;
-        private Texture2D weaponTexture;
-        private bool weaponIsOut;
-        private float weaponRotation;
-        private TimeSpan weaponTimer;
-        private TimeSpan attackTimer;
-        private bool hasHit;
-        private Passive passive;
-        private Dictionary<Direction, Animation> flyingAnimation;
-        private Texture flySpritesheet;
-
-        public byte abilityPower { get; private set; }
 
         public Player(Vector2 pos)
             : base(pos)
@@ -39,6 +36,8 @@ namespace PowerOfOne
             Initialize();
         }
 
+        public byte abilityPower { get; private set; }
+
         protected override void Initialize()
         {
             EntityWidth = 32;
@@ -47,15 +46,27 @@ namespace PowerOfOne
         }
 
         #region Load
+
         public override void Load()
         {
             weaponTexture = Scripts.LoadTexture(@"Weapons\Sword");
 
-            walkSpriteSheet = Scripts.LoadTexture(@"Player\Walk");            
+            walkSpriteSheet = Scripts.LoadTexture(@"Player\Walk");
+
+            flySpritesheet = Scripts.LoadTexture(@"Player\Fly");
+
+            flyingAnimation = Scripts.LoadEntityWalkAnimation(flySpritesheet);
+
+            foreach (KeyValuePair<Direction, Animation> kvp in flyingAnimation)
+            {
+                kvp.Value.ChangeAnimatingState(false);
+                kvp.Value.stepsPerFrame = 10 - (int)moveSpeed;
+            }
 
             base.Load();
         }
-        #endregion
+
+        #endregion Load
 
         public override void Update(GameTime gameTime)
         {
@@ -86,6 +97,11 @@ namespace PowerOfOne
                 }
             }
 
+            if(IsFlying())
+            {
+                flyingAnimation[currentDirection].Update(Position,0);
+            }
+
             passive.Update(gameTime);
             UpdateCamera();
             base.Update(gameTime);
@@ -105,32 +121,40 @@ namespace PowerOfOne
                 spriteBatch.Draw(weaponTexture, weaponPosition, null, Color.White, weaponRotation, new Vector2(0, weaponTexture.Height / 2), 1f, SpriteEffects.None, 0.3f);
             }
 
-            walkingAnimation[currentDirection].Draw(spriteBatch,size, 0.9f, Color.White * 0.2f);
             base.Draw(spriteBatch);
+            if (IsFlying())
+            {
+                flyingAnimation[currentDirection].Draw(spriteBatch, size, defaultDepth, Color.White);
+            }
+            else
+            {
+                walkingAnimation[currentDirection].Draw(spriteBatch, size, 0.9f, Color.White * 0.2f);                
+            }
+        }
+
+        private bool IsFlying()
+        {
+            return passive.Activated && passive.GetType() == typeof(Flying);
         }
 
         private void CheckIfHasHit()
         {
             foreach (Entity entity in Main.Entities)
             {
-
                 if (entity != this)
                 {
-
                     if (Vector2.Distance(weaponTipPosition, entity.Position) <= weaponTexture.Width)
                     {
                         Vector2 direction = Vector2.Normalize(weaponTipPosition - weaponPosition);
 
                         for (int i = 0; i < weaponTexture.Width; i++)
                         {
-
                             if (entity.rect.Contains(weaponPosition + direction * i))
                             {
                                 entity.TakeDamage(baseDamage);
                                 hasHit = true;
                                 break;
                             }
-
                         }
                     }
                 }
@@ -163,7 +187,7 @@ namespace PowerOfOne
             attackTimer = new TimeSpan(0, 0, 0, 0, attackSpeed);
 
             walkingAnimation[currentDirection].ChangeAnimatingState(false);
-        }        
+        }
 
         private void StopBasicAttack()
         {
@@ -196,15 +220,16 @@ namespace PowerOfOne
                 Scripts.KeyIsReleased(Keys.S) &&
                 Scripts.KeyIsReleased(Keys.D))
             {
-                foreach (KeyValuePair<Direction, Animation> kvp in walkingAnimation)
+                StopAnimation(walkingAnimation);
+                if (IsFlying())
                 {
-                    kvp.Value.ChangeAnimatingState(false);
+                    StopAnimation(flyingAnimation);
                 }
             }
 
             if (Main.mouse.LeftClick() || Main.mouse.LeftHeld())
             {
-                if (Vector2.Distance(Main.mouse.RealPosition,Position)>EntityHeight/2)
+                if (Vector2.Distance(Main.mouse.RealPosition, Position) > EntityHeight / 2)
                 {
                     //if (canAttack)
                     //{
@@ -219,7 +244,7 @@ namespace PowerOfOne
 
             if (Main.keyboard.JustPressed(Keys.LeftShift))
             {
-                if(!passive.Activated)
+                if (!passive.Activated)
                 {
                     passive.Activate();
                 }
@@ -232,6 +257,18 @@ namespace PowerOfOne
             if (Main.mouse.RightClick() || Main.mouse.RightHeld())
             {
                 ability.ActivateSecondaryAbility();
+            }
+        }
+
+        protected override void Move(Direction direction, float moveDistance)
+        {
+            base.Move(direction, moveDistance);
+            if (IsFlying())
+            {
+                if (!flyingAnimation[currentDirection].isAnimating)
+                {
+                    flyingAnimation[currentDirection].ChangeAnimatingState(true);
+                }
             }
         }
     }

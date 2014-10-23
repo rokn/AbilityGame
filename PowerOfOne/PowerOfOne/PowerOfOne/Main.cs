@@ -1,47 +1,43 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using System.Runtime.Serialization;
+using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 
 namespace PowerOfOne
 {
     public class Main : Microsoft.Xna.Framework.Game
     {
-
-        private const int TileSetsCount = 43;
-        public const bool inEditMode = false;
-        public const bool showBoundingBoxes = true;
         private const int EnemiesCount = 7;
-        private const int levelWidth1 = 100;
         private const int levelHeight1 = 60;
+        private const int levelWidth1 = 100;
+        private const int TileSetsCount = 43;
 
-
-        GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
-        public static Texture2D mouseTexture;
-        public static MouseCursor mouse;
-        public static KeysInput keyboard;
-        public static int width, height;
         private bool exit;
-        public static ContentManager content;
-        public static List<Projectile> Projectiles;
-        public static Camera camera;
-        public static TileMap tilemap;
+        private GraphicsDeviceManager graphics;
         private Player player;
-        public static List<Rectangle> blockRects;
-        public static List<Entity> Entities;
+        private SpriteBatch spriteBatch;
+        public const bool inEditMode = false;
+        public const bool showBoundingBoxes = false;
         public GameTime gameTimeRef;
-        public static Texture2D BoundingBox;
-        public static List<Entity> removeEntities;
-        public static SpriteFont Font;
-
-        //Variables for edit mode :
+        public static Camera camera;
+        public static ContentManager content;
         public static int currTileset;
+        public static int width, height;
+        public static KeysInput keyboard;
+        public static List<Entity> Entities;
+        public static List<Entity> removeEntities;
+        public static List<Projectile> Projectiles;
+        public static List<Rectangle> blockRects;
+        public static MouseCursor mouse;
+        public static SpriteFont Font;
+        public static Texture2D BoundingBox;
+        public static Texture2D mouseTexture;
+        public static TileMap tilemap;
 
         public static string SavePath
         {
@@ -74,7 +70,7 @@ namespace PowerOfOne
             keyboard = new KeysInput();
             exit = false;
             camera = new Camera();
-            tilemap = new TileMap(Vector2.Zero,levelWidth1, levelHeight1);
+            tilemap = new TileMap(Vector2.Zero, levelWidth1, levelHeight1);
             TileSet.SpriteSheet = new List<Texture2D>();
             TileSet.tileHeight = 32;
             TileSet.tileWidth = 32;
@@ -96,7 +92,8 @@ namespace PowerOfOne
                 Entities.Add(new Enemy(new Vector2(1000, 800), rand.Next(EnemiesCount)));
                 Entities.Add(new Enemy(new Vector2(1100, 800), rand.Next(EnemiesCount)));
             }
-            else {
+            else
+            {
                 currTileset = 0;
             }
             LoadLevel();
@@ -112,7 +109,7 @@ namespace PowerOfOne
 
             for (int i = 0; i < TileSetsCount; i++)
             {
-                TileSet.SpriteSheet.Add(Scripts.LoadTexture(@"TileSets\Tileset_ (" + i.ToString()+")"));
+                TileSet.SpriteSheet.Add(Scripts.LoadTexture(@"TileSets\Tileset_ (" + i.ToString() + ")"));
             }
 
             if (!inEditMode)
@@ -125,7 +122,6 @@ namespace PowerOfOne
                 EditorGUI.Initialize();
                 EditorGUI.Load();
             }
-
         }
 
         protected override void Update(GameTime gameTime)
@@ -178,7 +174,7 @@ namespace PowerOfOne
             }
             else
             {
-                EditorGUI.Draw(spriteBatch,false);
+                EditorGUI.Draw(spriteBatch, false);
             }
 
             DrawObject(tilemap);
@@ -193,14 +189,13 @@ namespace PowerOfOne
 
             spriteBatch.End();
 
-
             spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend);
 
             DrawMouse();
 
             if (inEditMode)
             {
-                EditorGUI.Draw(spriteBatch,true);
+                EditorGUI.Draw(spriteBatch, true);
             }
 
             spriteBatch.End();
@@ -242,7 +237,6 @@ namespace PowerOfOne
             obj.Update(gameTimeRef);
         }
 
-
         private void UpdateCamera()
         {
             if (Scripts.KeyIsPressed(Keys.NumPad4))
@@ -277,7 +271,6 @@ namespace PowerOfOne
             Entities.ForEach(UpdateObject);
             RemoveEntities();
         }
-
 
         private void RemoveEntities()
         {
@@ -328,7 +321,6 @@ namespace PowerOfOne
 
                 for (int i = 0; i < Main.tilemap.Width; i++)
                 {
-
                     for (int b = 0; b < Main.tilemap.Height; b++)
                     {
                         try
@@ -340,7 +332,6 @@ namespace PowerOfOne
                             break;
                         }
                     }
-
                 }
 
                 stream.Close();
@@ -365,6 +356,7 @@ namespace PowerOfOne
                 ent.Draw(spriteBatch);
             }
         }
-        #endregion
+
+        #endregion HelperMethods
     }
 }
