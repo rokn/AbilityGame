@@ -17,6 +17,9 @@ namespace PowerOfOne
         private TimeSpan weaponTimer;
         private TimeSpan attackTimer;
         private bool hasHit;
+        private Passive passive;
+        private Dictionary<Direction, Animation> flyingAnimation;
+        private Texture flySpritesheet;
 
         public byte abilityPower { get; private set; }
 
@@ -30,7 +33,9 @@ namespace PowerOfOne
             hasHit = false;
             baseDamage = 5;
             ability = new Telekinesis(this);
+            passive = new Speed(this);
             abilityPower = 1;
+            flyingAnimation = new Dictionary<Direction, Animation>();
             Initialize();
         }
 
@@ -46,7 +51,7 @@ namespace PowerOfOne
         {
             weaponTexture = Scripts.LoadTexture(@"Weapons\Sword");
 
-            walkSpriteSheet = Scripts.LoadTexture(@"Player\Walk");
+            walkSpriteSheet = Scripts.LoadTexture(@"Player\Walk");            
 
             base.Load();
         }
@@ -70,6 +75,7 @@ namespace PowerOfOne
                     StopBasicAttack();
                 }
             }
+
             attackTimer = attackTimer.Subtract(gameTime.ElapsedGameTime);
 
             if (!canAttack)
@@ -80,6 +86,7 @@ namespace PowerOfOne
                 }
             }
 
+            passive.Update(gameTime);
             UpdateCamera();
             base.Update(gameTime);
         }
@@ -98,7 +105,7 @@ namespace PowerOfOne
                 spriteBatch.Draw(weaponTexture, weaponPosition, null, Color.White, weaponRotation, new Vector2(0, weaponTexture.Height / 2), 1f, SpriteEffects.None, 0.3f);
             }
 
-            walkingAnimation[currentDirection].Draw(spriteBatch, 0.9f, Color.White * 0.2f);
+            walkingAnimation[currentDirection].Draw(spriteBatch,size, 0.9f, Color.White * 0.2f);
             base.Draw(spriteBatch);
         }
 
@@ -150,28 +157,13 @@ namespace PowerOfOne
 
             float rInDegrees = MathHelper.ToDegrees(weaponRotation);
 
-            if (rInDegrees > -45 && rInDegrees <= 45)
-            {
-                currentDirection = Direction.Right;
-            }
-            else if (rInDegrees > 45 && rInDegrees <= 135)
-            {
-                currentDirection = Direction.Down;
-            }
-            else if (rInDegrees > 135 || rInDegrees <= -135)
-            {
-                currentDirection = Direction.Left;
-            }
-            else if (rInDegrees > -135 && rInDegrees <= -45)
-            {
-                currentDirection = Direction.Up;
-            }
+            DirectTowardsRotation(rInDegrees);
 
             weaponTimer = new TimeSpan(0, 0, 0, 0, weaponTime);
             attackTimer = new TimeSpan(0, 0, 0, 0, attackSpeed);
 
             walkingAnimation[currentDirection].ChangeAnimatingState(false);
-        }
+        }        
 
         private void StopBasicAttack()
         {
@@ -212,7 +204,7 @@ namespace PowerOfOne
 
             if (Main.mouse.LeftClick() || Main.mouse.LeftHeld())
             {
-                if (!Main.mouse.clickRectangle.Intersects(rect))
+                if (Vector2.Distance(Main.mouse.RealPosition,Position)>EntityHeight/2)
                 {
                     //if (canAttack)
                     //{
@@ -222,6 +214,18 @@ namespace PowerOfOne
                     //    }
                     //}
                     ability.ActivateBasicAbility();
+                }
+            }
+
+            if (Main.keyboard.JustPressed(Keys.LeftShift))
+            {
+                if(!passive.Activated)
+                {
+                    passive.Activate();
+                }
+                else
+                {
+                    passive.Deactivate();
                 }
             }
 

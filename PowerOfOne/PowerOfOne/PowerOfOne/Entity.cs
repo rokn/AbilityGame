@@ -13,11 +13,11 @@ namespace PowerOfOne
 
         protected int weaponTime;
         protected int attackSpeed;
-        protected Dictionary<Direction, Animation> walkingAnimation;
+        public Dictionary<Direction, Animation> walkingAnimation;
         protected Vector2 position;
         protected Vector2 walkingOrigin;
         protected Vector2 origin;
-        protected Direction currentDirection;
+        public Direction currentDirection;
         protected float moveSpeed;
         protected Rectangle walkingRect;
         protected bool canWalk;
@@ -29,9 +29,12 @@ namespace PowerOfOne
         public float defaultDepth;
         protected int baseDamage;
         public Ability ability;
+        protected float size;
+        private float defaultSpeed;
 
         public Entity(Vector2 pos)
         {
+            size = 1f;
             defaultDepth = 0.2f;
             health = 100;
             maxHealth = 100;
@@ -40,6 +43,37 @@ namespace PowerOfOne
             currentDirection = Direction.Down;
             canWalk = true;
             canAttack = true;
+        }
+
+        public bool noClip { get; set; }
+
+        public float DefaultSpeed
+        {
+            get
+            {
+                return defaultSpeed;
+            }
+            private set
+            {
+                defaultSpeed = value;
+            }
+        }
+
+        public float Size 
+        {
+            get
+            {
+                return size;
+            }
+
+            set
+            {
+                if (size < 0f)
+                {
+                    throw new ArgumentOutOfRangeException("Size of entities must be greater than zero");
+                }
+                size = value;
+            }
         }
 
         public Vector2 Position
@@ -61,6 +95,7 @@ namespace PowerOfOne
             walkingRect = new Rectangle((int)position.X - (int)walkingOrigin.X, (int)position.Y - (int)walkingOrigin.Y, EntityWidth, EntityHeight -24);
             rect = new Rectangle((int)position.X - (int)origin.X, (int)position.Y - (int)origin.Y, EntityWidth, EntityHeight);
             UpdateRect();
+            defaultSpeed = moveSpeed;
         }
 
         public virtual void Load() 
@@ -84,7 +119,8 @@ namespace PowerOfOne
 
         public virtual void Draw(SpriteBatch spriteBatch) 
         {
-            walkingAnimation[currentDirection].Draw(spriteBatch, defaultDepth+(0.000001f*position.Y),Color.White);
+            
+            walkingAnimation[currentDirection].Draw(spriteBatch, size, defaultDepth + (0.000001f * position.Y), Color.White);
             ability.Draw(spriteBatch);
 
             if(Main.showBoundingBoxes)
@@ -157,30 +193,59 @@ namespace PowerOfOne
                         break;
                 }
 
-                foreach (Rectangle rect in Main.blockRects)
+                if (!noClip)
                 {
-                    if (walkingRect.Intersects(rect))
+                    if(CheckForCollision())
                     {
                         position = previousPos;
                         UpdateRect();
-                        break;
-                    }
-                }
-
-                foreach (Entity entity in Main.Entities)
-                {
-                    if (entity != this)
-                    {
-                        if (walkingRect.Intersects(entity.walkingRect))
-                        {
-                            position = previousPos;
-                            UpdateRect();
-                            break;
-                        }
                     }
                 }
                 CheckIfWithinBounds();
                 RoundPosition();
+            }
+        }
+
+        public bool CheckForCollision()
+        {
+            foreach (Rectangle rect in Main.blockRects)
+            {
+                if (walkingRect.Intersects(rect))
+                {
+                    return true;
+                }
+            }
+
+            foreach (Entity entity in Main.Entities)
+            {
+                if (entity != this)
+                {
+                    if (walkingRect.Intersects(entity.walkingRect))
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        public void DirectTowardsRotation(float rInDegrees)
+        {
+            if (rInDegrees > -45 && rInDegrees <= 45)
+            {
+                currentDirection = Direction.Right;
+            }
+            else if (rInDegrees > 45 && rInDegrees <= 135)
+            {
+                currentDirection = Direction.Down;
+            }
+            else if (rInDegrees > 135 || rInDegrees <= -135)
+            {
+                currentDirection = Direction.Left;
+            }
+            else if (rInDegrees > -135 && rInDegrees <= -45)
+            {
+                currentDirection = Direction.Up;
             }
         }
 
@@ -225,6 +290,21 @@ namespace PowerOfOne
             if(health<0)
             {
                 Main.removeEntities.Add(this);
+            }
+        }
+
+        public void ChangeSpeed(float newSpeed)
+        {
+            if(newSpeed >20)
+            {
+                newSpeed = 20;
+            }
+
+            moveSpeed = newSpeed;
+
+            foreach (KeyValuePair<Direction, Animation> kvp in walkingAnimation)
+            {
+                kvp.Value.stepsPerFrame = 15 - (int)moveSpeed;
             }
         }
     }

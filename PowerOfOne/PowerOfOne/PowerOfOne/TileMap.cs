@@ -81,7 +81,9 @@ namespace PowerOfOne
 
                 for (int y = 0; y < Height; y++)
                 {
-                    float defaultDepth = 0.1f + (y / 1000f);
+                    float defaultDepth = 0.1f;
+                    float topDepth = defaultDepth + (y / 1000f);
+
                     Vector2 pos = Position + new Vector2(TileSet.tileWidth * x, TileSet.tileHeight * y);
 
                     if (tileMap[x, y].hasTile)
@@ -93,7 +95,7 @@ namespace PowerOfOne
 
                     foreach (Tile tile in tileMap[x, y].MergeTiles)
                     {
-                        DrawTile(tile, pos, defaultDepth + 0.0001f * mergeTilesDepth);
+                        DrawTile(tile, pos, defaultDepth + 0.000001f * mergeTilesDepth);
                         mergeTilesDepth++;
                     }
 
@@ -101,7 +103,7 @@ namespace PowerOfOne
 
                     foreach (Tile tile in tileMap[x, y].TopTiles)
                     {
-                        DrawTile(tile, pos-new Vector2(0,TileSet.tileHeight*topTilesDepth), defaultDepth + 0.001f * topTilesDepth+0.1f);
+                        DrawTile(tile, pos - new Vector2(0, TileSet.tileHeight * topTilesDepth), topDepth + 0.00001f * topTilesDepth + 0.1f);
                         topTilesDepth++;
                     }
 

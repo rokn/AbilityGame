@@ -15,7 +15,7 @@ namespace PowerOfOne
 
         private const int TileSetsCount = 43;
         public const bool inEditMode = false;
-        public const bool showBoundingBoxes = false;
+        public const bool showBoundingBoxes = true;
         private const int EnemiesCount = 7;
         private const int levelWidth1 = 100;
         private const int levelHeight1 = 60;

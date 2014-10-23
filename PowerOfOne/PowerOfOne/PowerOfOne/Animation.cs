@@ -127,15 +127,15 @@ namespace PowerOfOne
         }
         #endregion;
 
-        public void Draw(SpriteBatch spriteBatch, float depth,Color color)
+        public void Draw(SpriteBatch spriteBatch,float size, float depth,Color color)
         {
             if (isSpriteSheet)
             {
-                spriteBatch.Draw(sourceSpriteSheet, Position, sourceRectangles[Index], color, rotation, Origin, 1f, SpriteEffects.None, depth);
+                spriteBatch.Draw(sourceSpriteSheet, Position, sourceRectangles[Index], color, rotation, Origin, size, SpriteEffects.None, depth);
             }
             else
             {
-                spriteBatch.Draw(currentTexture, Position, null, color, rotation, Origin, 1f, SpriteEffects.None, depth);
+                spriteBatch.Draw(currentTexture, Position, null, color, rotation, Origin, size, SpriteEffects.None, depth);
             }
         }
     }

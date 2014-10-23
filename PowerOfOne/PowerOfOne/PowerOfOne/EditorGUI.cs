@@ -395,7 +395,7 @@ namespace PowerOfOne
                     if (mouse.Position.X < Main.width - currSpriteSheet.Width)
                     {                        
                         Vector2 mouseSelectedPosition = GetSnappedMousePosition();
-                        spriteBatch.Draw(selectedTileTexture, Main.tilemap.Position + mouseSelectedPosition, markerRect, Color.White, 0, new Vector2(), 1f, SpriteEffects.None, 0.15f);
+                        spriteBatch.Draw(selectedTileTexture, Main.tilemap.Position + mouseSelectedPosition, markerRect, Color.White, 0, new Vector2(), 1f, SpriteEffects.None, 0.95f);
                     }
 
                 }

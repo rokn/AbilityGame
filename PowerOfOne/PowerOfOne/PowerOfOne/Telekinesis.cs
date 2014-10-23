@@ -29,8 +29,8 @@ namespace PowerOfOne
         public Telekinesis(Entity owner):base(owner)
         {
             push = false;
-            pushSpeed = 12f;
-            pullstrength = 8f;
+            pushSpeed = 15f;
+            pullstrength = 10f;
             pushMiliSeconds = 400;
             pullMiliSeconds = 200;
             pushCollision = new List<Vector2>();
@@ -160,6 +160,8 @@ namespace PowerOfOne
                 {
                     pushCollision.Add(pushStart + startToEndDirection * i);
                 }
+
+                Owner.DirectTowardsRotation(MathHelper.ToDegrees(teleAngle));
 
             }
         }
