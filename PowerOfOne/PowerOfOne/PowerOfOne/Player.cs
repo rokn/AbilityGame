@@ -9,28 +9,33 @@ namespace PowerOfOne
     public class Player : Entity
     {
         private bool hasHit;
+        private bool hasPassive;
         private bool weaponIsOut;
         private Dictionary<Direction, Animation> flyingAnimation;
         private float weaponRotation;
         private Passive passive;
+        private List<Ability> abilities;
         private Texture2D flySpritesheet;
         private Texture2D weaponTexture;
         private TimeSpan attackTimer;
         private TimeSpan weaponTimer;
         private Vector2 weaponPosition;
-        private Vector2 weaponTipPosition;
+        private Vector2 weaponTipPosition;        
 
         public Player(Vector2 pos)
             : base(pos)
         {
+            health = 100;
+            maxHealth = 100;
             weaponTime = 200;
             attackSpeed = 500;
-            moveSpeed = 4;
+            BaseSpeed = 4;
+            moveSpeed = BaseSpeed;
             weaponIsOut = false;
             hasHit = false;
+            hasPassive = false;
             baseDamage = 5;
-            ability = new Telekinesis(this);
-            passive = new Speed(this);
+            abilities = new List<Ability>();
             abilityPower = 1;
             flyingAnimation = new Dictionary<Direction, Animation>();
             Initialize();
@@ -42,6 +47,7 @@ namespace PowerOfOne
         {
             EntityWidth = 32;
             EntityHeight = 48;
+
             base.Initialize();
         }
 
@@ -97,12 +103,16 @@ namespace PowerOfOne
                 }
             }
 
-            if(IsFlying())
+            if (hasPassive)
             {
-                flyingAnimation[currentDirection].Update(Position,0);
+                if (IsFlying())
+                {
+                    flyingAnimation[currentDirection].Update(Position, 0);
+                }
+
+                passive.Update(gameTime);
             }
 
-            passive.Update(gameTime);
             UpdateCamera();
             base.Update(gameTime);
         }
@@ -124,7 +134,7 @@ namespace PowerOfOne
             base.Draw(spriteBatch);
             if (IsFlying())
             {
-                flyingAnimation[currentDirection].Draw(spriteBatch, size, defaultDepth, Color.White);
+                flyingAnimation[currentDirection].Draw(spriteBatch, size, baseDepth, Color.White);
             }
             else
             {
@@ -132,9 +142,28 @@ namespace PowerOfOne
             }
         }
 
+        protected override void Move(Direction direction, float moveDistance)
+        {
+            base.Move(direction, moveDistance);
+            if (IsFlying())
+            {
+                if (!flyingAnimation[currentDirection].isAnimating)
+                {
+                    flyingAnimation[currentDirection].ChangeAnimatingState(true);
+                }
+            }
+        }
+
         private bool IsFlying()
         {
-            return passive.Activated && passive.GetType() == typeof(Flying);
+            if (hasPassive)
+            {
+                return passive.Activated && passive.GetType() == typeof(Flying);
+            }
+            else
+            {
+                return false;
+            }
         }
 
         private void CheckIfHasHit()
@@ -197,6 +226,33 @@ namespace PowerOfOne
 
         private void CheckForInput()
         {
+            CheckForMovementButtons();
+            CheckForAttackButtons();
+            CheckForPassiveButton();
+
+            
+        }
+
+        private void CheckForPassiveButton()
+        {
+            if (hasPassive)
+            {
+                if (Main.keyboard.JustPressed(Keys.LeftShift))
+                {
+                    if (!passive.Activated)
+                    {
+                        passive.Activate();
+                    }
+                    else
+                    {
+                        passive.Deactivate();
+                    }
+                }
+            }
+        }
+
+        private void CheckForMovementButtons()
+        {
             if (Scripts.KeyIsPressed(Keys.D))
             {
                 Move(Direction.Right, moveSpeed);
@@ -215,61 +271,51 @@ namespace PowerOfOne
                 Move(Direction.Down, moveSpeed);
             }
 
-            if (Scripts.KeyIsReleased(Keys.W) &&
-                Scripts.KeyIsReleased(Keys.A) &&
-                Scripts.KeyIsReleased(Keys.S) &&
-                Scripts.KeyIsReleased(Keys.D))
+            if(IsMovementButonsAreReleased())
             {
                 StopAnimation(walkingAnimation);
+
                 if (IsFlying())
                 {
                     StopAnimation(flyingAnimation);
                 }
             }
+        }
 
+        private bool IsMovementButonsAreReleased()
+        {
+            if (Scripts.KeyIsReleased(Keys.W) &&
+                Scripts.KeyIsReleased(Keys.A) &&
+                Scripts.KeyIsReleased(Keys.S) &&
+                Scripts.KeyIsReleased(Keys.D))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        private void CheckForAttackButtons()
+        {
             if (Main.mouse.LeftClick() || Main.mouse.LeftHeld())
             {
                 if (Vector2.Distance(Main.mouse.RealPosition, Position) > EntityHeight / 2)
                 {
-                    //if (canAttack)
-                    //{
-                    //    if (!weaponIsOut)
-                    //    {
-                    //        StartBasicAttack();
-                    //    }
-                    //}
-                    ability.ActivateBasicAbility();
-                }
-            }
+                    if (canAttack)
+                    {
+                        if (!weaponIsOut)
+                        {
+                            StartBasicAttack();
+                        }
+                    }
 
-            if (Main.keyboard.JustPressed(Keys.LeftShift))
-            {
-                if (!passive.Activated)
-                {
-                    passive.Activate();
-                }
-                else
-                {
-                    passive.Deactivate();
+                    //ability.ActivateBasicAbility();
                 }
             }
 
             if (Main.mouse.RightClick() || Main.mouse.RightHeld())
             {
-                ability.ActivateSecondaryAbility();
+                //ability.ActivateSecondaryAbility();
             }
-        }
-
-        protected override void Move(Direction direction, float moveDistance)
-        {
-            base.Move(direction, moveDistance);
-            if (IsFlying())
-            {
-                if (!flyingAnimation[currentDirection].isAnimating)
-                {
-                    flyingAnimation[currentDirection].ChangeAnimatingState(true);
-                }
-            }
-        }
+        }        
     }
 }

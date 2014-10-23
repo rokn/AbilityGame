@@ -11,7 +11,7 @@ namespace PowerOfOne
 
         public int EntityHeight { get; set; }
 
-        private float defaultSpeed;
+        private float baseSpeed;
         protected bool canAttack;
         protected bool canWalk;
         protected float moveSpeed;
@@ -26,18 +26,15 @@ namespace PowerOfOne
         protected Vector2 origin;
         protected Vector2 position;
         protected Vector2 walkingOrigin;
-        public Ability ability;
         public Dictionary<Direction, Animation> walkingAnimation;
         public Direction currentDirection;
-        public float defaultDepth;
+        public float baseDepth;
         public Rectangle rect;
 
         public Entity(Vector2 pos)
         {
             size = 1f;
-            defaultDepth = 0.2f;
-            health = 100;
-            maxHealth = 100;
+            baseDepth = 0.2f;
             position = pos;
             walkingAnimation = new Dictionary<Direction, Animation>();
             currentDirection = Direction.Down;
@@ -47,15 +44,15 @@ namespace PowerOfOne
 
         public bool noClip { get; set; }
 
-        public float DefaultSpeed
+        public float BaseSpeed
         {
             get
             {
-                return defaultSpeed;
+                return baseSpeed;
             }
-            private set
+            protected set
             {
-                defaultSpeed = value;
+                baseSpeed = value;
             }
         }
 
@@ -95,7 +92,7 @@ namespace PowerOfOne
             walkingRect = new Rectangle((int)position.X - (int)walkingOrigin.X, (int)position.Y - (int)walkingOrigin.Y, EntityWidth, EntityHeight - 24);
             rect = new Rectangle((int)position.X - (int)origin.X, (int)position.Y - (int)origin.Y, EntityWidth, EntityHeight);
             UpdateRect();
-            defaultSpeed = moveSpeed;
+            baseSpeed = moveSpeed;
         }
 
         public virtual void Load()
@@ -108,22 +105,24 @@ namespace PowerOfOne
                 kvp.Value.stepsPerFrame = 15 - (int)moveSpeed;
             }
 
-            ability.Load();
+            
         }
 
         public virtual void Update(GameTime gameTime)
         {
             walkingAnimation[currentDirection].Update(position, 0);
-            ability.Update(gameTime);
+            if (health < 0)
+            {
+                Main.removeEntities.Add(this);
+            }
         }
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            walkingAnimation[currentDirection].Draw(spriteBatch, size, defaultDepth + (0.000001f * position.Y), Color.White);
-            ability.Draw(spriteBatch);
+            walkingAnimation[currentDirection].Draw(spriteBatch, size, baseDepth + (0.000001f * position.Y), Color.White);
 
             if (Main.showBoundingBoxes)
-                spriteBatch.Draw(Main.BoundingBox, rect, null, Color.Black * 0.3f, 0, new Vector2(), SpriteEffects.None, defaultDepth + (0.000001f * position.Y) + 0.000001f);
+                spriteBatch.Draw(Main.BoundingBox, rect, null, Color.Black * 0.3f, 0, new Vector2(), SpriteEffects.None, baseDepth + (0.000001f * position.Y) + 0.000001f);
         }
 
         public void MoveByPosition(Vector2 movement)

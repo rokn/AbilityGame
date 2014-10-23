@@ -13,8 +13,8 @@ namespace PowerOfOne
     public class Main : Microsoft.Xna.Framework.Game
     {
         private const int EnemiesCount = 7;
-        private const int levelHeight1 = 60;
         private const int levelWidth1 = 100;
+        private const int levelHeight1 = 60;
         private const int TileSetsCount = 43;
 
         private bool exit;
@@ -39,11 +39,14 @@ namespace PowerOfOne
         public static Texture2D mouseTexture;
         public static TileMap tilemap;
 
+        public static Random rand { get; private set; }
+
         public static string SavePath
         {
             get
             {
-                return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "PowerOfOne");
+                return "Levels";
+                //return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "PowerOfOne");
             }
         }
 
@@ -57,6 +60,7 @@ namespace PowerOfOne
 
         public Main()
         {
+            rand = new Random();
             Components.Add(new FrameRateCounter(this));
             graphics = new GraphicsDeviceManager(this);
             content = Content;
@@ -83,19 +87,19 @@ namespace PowerOfOne
                 removeEntities = new List<Entity>();
                 player = new Player(new Vector2(370, 1612));
                 Entities.Add(player);
-                Random rand = new Random();
-                Entities.Add(new Enemy(new Vector2(500, 800), rand.Next(EnemiesCount)));
                 Entities.Add(new Enemy(new Vector2(600, 800), rand.Next(EnemiesCount)));
                 Entities.Add(new Enemy(new Vector2(700, 800), rand.Next(EnemiesCount)));
                 Entities.Add(new Enemy(new Vector2(800, 800), rand.Next(EnemiesCount)));
                 Entities.Add(new Enemy(new Vector2(900, 800), rand.Next(EnemiesCount)));
                 Entities.Add(new Enemy(new Vector2(1000, 800), rand.Next(EnemiesCount)));
                 Entities.Add(new Enemy(new Vector2(1100, 800), rand.Next(EnemiesCount)));
+                Entities.Add(new Enemy(new Vector2(1200, 800), rand.Next(EnemiesCount)));
             }
             else
             {
                 currTileset = 0;
             }
+
             LoadLevel();
             base.Initialize();
         }

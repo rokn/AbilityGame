@@ -1,6 +1,6 @@
 ﻿namespace PowerOfOne
 {
-    public class Passive : Ability
+    public abstract class Passive : Ability
     {
         public bool Activated { get; set; }
 

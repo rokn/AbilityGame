@@ -10,9 +10,9 @@ namespace PowerOfOne
         public override void Activate()
         {
             Owner.Size = 1.2f;
-            Owner.ChangeSpeed(Owner.DefaultSpeed + 4);
+            Owner.ChangeSpeed(Owner.BaseSpeed + 4);
             Owner.walkingAnimation[Owner.currentDirection].ChangeAnimatingState(false);
-            Owner.defaultDepth = 0.8f;
+            Owner.baseDepth = 0.8f;
             Owner.noClip = true;
             base.Activate();
         }
@@ -30,8 +30,8 @@ namespace PowerOfOne
             if (!Owner.CheckForCollision())
             {
                 Owner.Size = 1f;
-                Owner.ChangeSpeed(Owner.DefaultSpeed);
-                Owner.defaultDepth = 0.2f;
+                Owner.ChangeSpeed(Owner.BaseSpeed);
+                Owner.baseDepth = 0.2f;
                 Owner.noClip = false;
                 base.Deactivate();
             }

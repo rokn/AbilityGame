@@ -136,8 +136,7 @@ namespace PowerOfOne
                 return true;
             }
             else if ((currentmouse.LeftButton == ButtonState.Pressed
-                && oldmouse.LeftButton == ButtonState.Pressed) &&
-                (currentmouse.X != oldmouse.X || currentmouse.Y != oldmouse.Y))
+                && oldmouse.LeftButton == ButtonState.Pressed))
             {
                 leftIsHeld = true;
                 return true;
@@ -177,8 +176,7 @@ namespace PowerOfOne
                 return true;
             }
             else if ((currentmouse.RightButton == ButtonState.Pressed
-                && oldmouse.RightButton == ButtonState.Pressed) &&
-                (currentmouse.X != oldmouse.X || currentmouse.Y != oldmouse.Y))
+                && oldmouse.RightButton == ButtonState.Pressed))
             {
                 rightIsHeld = true;
                 return true;

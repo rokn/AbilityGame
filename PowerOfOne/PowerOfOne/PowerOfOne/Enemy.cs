@@ -2,6 +2,8 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using System.Threading;
+using System.Timers;
 namespace PowerOfOne
 {
     public class Enemy : Entity
@@ -14,15 +16,19 @@ namespace PowerOfOne
         private Queue<Direction> idleMovementSteps;
         private Random rand;
         private int id;
-
+        private TimeSpan idleMoveTimer;
+        private Ability ability;
         public Enemy(Vector2 pos,int id)
             : base(pos)
         {
+            health = 100;
+            maxHealth = 100;
             moveSpeed = 4;
             idleMovementSteps = new Queue<Direction>();
-            rand = new Random();
+            rand = Main.rand;
             ability = new Telekinesis(this);
             this.id = id;
+            idleMoveTimer = new TimeSpan();
         }
 
         protected override void Initialize()
@@ -46,28 +52,35 @@ namespace PowerOfOne
 
             healthBar.Load(true, "Enemies");
 
+            ability.Load();
             base.Load();
         }
 
         public override void Update(GameTime gameTime)
         {
             healthBar.Update(Position - healtBarPositionOffset, health, maxHealth);
+            IdleMovement(gameTime);
+            ability.Update(gameTime);
             base.Update(gameTime);
         }
 
-        private void IdleMovement()
+        private void IdleMovement(GameTime gameTime)
         {
-            int moveRand = rand.Next(100);
-
-            if (moveRand <= MoveChance)
+            if (idleMoveTimer.TotalMilliseconds <= 0)
             {
-                int moveSteps = rand.Next(20);
+                int moveSteps = rand.Next(5,30);
                 Direction directionToMove = (Direction)rand.Next(4);
 
                 for (int i = 0; i < moveSteps; i++)
                 {
                     idleMovementSteps.Enqueue(directionToMove);
                 }
+
+                idleMoveTimer = new TimeSpan(0, 0, 0, 0, moveSteps * 100);
+            }
+            else
+            {
+                idleMoveTimer = idleMoveTimer.Subtract(gameTime.ElapsedGameTime);
             }
 
             if (idleMovementSteps.Count > 0)
@@ -86,6 +99,8 @@ namespace PowerOfOne
             {
                 healthBar.Draw(spriteBatch, 0.9f);
             }
+
+            ability.Draw(spriteBatch);
 
             base.Draw(spriteBatch);
         }
