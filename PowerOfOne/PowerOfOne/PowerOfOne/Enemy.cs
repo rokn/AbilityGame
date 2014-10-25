@@ -2,8 +2,8 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
-using System.Threading;
-using System.Timers;
+using System.Linq;
+
 namespace PowerOfOne
 {
     public class Enemy : Entity
@@ -18,15 +18,20 @@ namespace PowerOfOne
         private int id;
         private TimeSpan idleMoveTimer;
         private Ability ability;
+        private bool aggresive;
+        private float sightDistance;
+
         public Enemy(Vector2 pos,int id)
             : base(pos)
         {
             health = 100;
             maxHealth = 100;
             moveSpeed = 4;
+            sightDistance = 300;
             idleMovementSteps = new Queue<Direction>();
             rand = Main.rand;
             ability = new Telekinesis(this);
+            aggresive = true;
             this.id = id;
             idleMoveTimer = new TimeSpan();
         }
@@ -59,9 +64,67 @@ namespace PowerOfOne
         public override void Update(GameTime gameTime)
         {
             healthBar.Update(Position - healtBarPositionOffset, health, maxHealth);
-            IdleMovement(gameTime);
             ability.Update(gameTime);
+
+            if (aggresive)
+            {
+                if (CheckForPlayer())
+                {
+                    if(!GoToPlayer())
+                    {
+                        StopAnimation(walkingAnimation);
+                    }
+                }
+                else
+                {
+                    IdleMovement(gameTime);
+                }
+            }
+            else
+            {
+                IdleMovement(gameTime);
+            }
+
             base.Update(gameTime);
+        }
+
+        private bool GoToPlayer()
+        {
+            bool moved = false;
+
+            Entity player = Main.Entities.First(ent => ent.GetType() == typeof(Player));
+            Vector2 spaceBetween = new Vector2(EntityWidth/2 + player.EntityWidth/2, EntityHeight/2 + player.EntityHeight/2);
+
+            if (Position.X - player.Position.X > spaceBetween.X)
+            {
+                Move(Direction.Left, moveSpeed);
+                moved = true;
+            }
+
+            if (Position.Y - player.Position.Y > spaceBetween.Y)
+            {
+                Move(Direction.Up, moveSpeed);
+                moved = true;
+            }
+
+            if (player.Position.X - Position.X > spaceBetween.X)
+            {
+                Move(Direction.Right, moveSpeed);
+                moved = true;
+            }
+
+            if (player.Position.Y - Position.Y > spaceBetween.Y)
+            {
+                Move(Direction.Down, moveSpeed);
+                moved = true;
+            }
+
+            return moved;
+        }
+
+        private bool CheckForPlayer()
+        {
+            return Vector2.Distance(Position, Main.Entities.First(ent => ent.GetType() == typeof(Player)).Position) <= sightDistance;
         }
 
         private void IdleMovement(GameTime gameTime)

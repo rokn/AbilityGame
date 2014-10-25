@@ -18,7 +18,7 @@ namespace PowerOfOne
         private const int TileSetsCount = 43;
 
         private bool exit;
-        private GraphicsDeviceManager graphics;
+        public static GraphicsDeviceManager graphics;
         private Player player;
         private SpriteBatch spriteBatch;
         public const bool inEditMode = false;

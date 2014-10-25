@@ -8,6 +8,8 @@ namespace PowerOfOne
 {
     public class Player : Entity
     {
+
+        #region Vars
         private bool hasHit;
         private bool hasPassive;
         private bool weaponIsOut;
@@ -20,7 +22,10 @@ namespace PowerOfOne
         private TimeSpan attackTimer;
         private TimeSpan weaponTimer;
         private Vector2 weaponPosition;
-        private Vector2 weaponTipPosition;        
+        private Vector2 weaponTipPosition;
+        private bool weaponSelected;
+        private int selectedAbility;
+        #endregion
 
         public Player(Vector2 pos)
             : base(pos)
@@ -28,20 +33,23 @@ namespace PowerOfOne
             health = 100;
             maxHealth = 100;
             weaponTime = 200;
+            BaseWeaponTime = weaponTime;
             attackSpeed = 500;
+            baseAttackSpeed = attackSpeed;
             BaseSpeed = 4;
             moveSpeed = BaseSpeed;
             weaponIsOut = false;
+            weaponSelected = true;
             hasHit = false;
-            hasPassive = false;
-            baseDamage = 5;
+            hasPassive = true;
+            baseDamage = 15;
             abilities = new List<Ability>();
-            abilityPower = 1;
+            passive = new Speed(this);
+            AbilityPower = 5;
             flyingAnimation = new Dictionary<Direction, Animation>();
             Initialize();
         }
 
-        public byte abilityPower { get; private set; }
 
         protected override void Initialize()
         {
@@ -126,12 +134,18 @@ namespace PowerOfOne
 
         public override void Draw(SpriteBatch spriteBatch)
         {
+            if(hasPassive)
+            {
+                passive.Draw(spriteBatch);
+            }
+
             if (weaponIsOut)
             {
                 spriteBatch.Draw(weaponTexture, weaponPosition, null, Color.White, weaponRotation, new Vector2(0, weaponTexture.Height / 2), 1f, SpriteEffects.None, 0.3f);
             }
 
             base.Draw(spriteBatch);
+
             if (IsFlying())
             {
                 flyingAnimation[currentDirection].Draw(spriteBatch, size, baseDepth, Color.White);
@@ -300,22 +314,74 @@ namespace PowerOfOne
             {
                 if (Vector2.Distance(Main.mouse.RealPosition, Position) > EntityHeight / 2)
                 {
-                    if (canAttack)
+                    if (weaponSelected)
                     {
-                        if (!weaponIsOut)
+                        if (canAttack)
                         {
-                            StartBasicAttack();
+                            if (!weaponIsOut)
+                            {
+                                StartBasicAttack();
+                            }
                         }
                     }
-
-                    //ability.ActivateBasicAbility();
+                    else
+                    {
+                        abilities[selectedAbility].ActivateBasicAbility();
+                    }
                 }
             }
 
             if (Main.mouse.RightClick() || Main.mouse.RightHeld())
             {
-                //ability.ActivateSecondaryAbility();
+                if (!weaponSelected)
+                {
+                    abilities[selectedAbility].ActivateSecondaryAbility();
+                }
             }
         }        
+
+        private void CheckForAbilitySwitchButtons()
+        {
+            if (Scripts.KeyIsPressed(Keys.D1))
+            {
+                weaponSelected = true;
+            }
+
+            if (Scripts.KeyIsPressed(Keys.D2))
+            {
+                if (abilities.Count >= 1)
+                {
+                    selectedAbility = 1;
+                    weaponSelected = false;
+                }
+            }
+
+            if (Scripts.KeyIsPressed(Keys.D3))
+            {
+                if (abilities.Count >= 2)
+                {
+                    selectedAbility = 2;
+                    weaponSelected = false;
+                }
+            }
+
+            if (Scripts.KeyIsPressed(Keys.D4))
+            {
+                if (abilities.Count >= 3)
+                {
+                    selectedAbility = 3;
+                    weaponSelected = false;
+                }
+            }
+
+            if (Scripts.KeyIsPressed(Keys.D5))
+            {
+                if (abilities.Count >= 4)
+                {
+                    selectedAbility = 4;
+                    weaponSelected = false;
+                }
+            }
+        }
     }
 }

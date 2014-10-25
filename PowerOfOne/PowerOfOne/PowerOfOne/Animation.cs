@@ -19,7 +19,7 @@ namespace PowerOfOne
         public int FrameCount;
         public bool looping, isAnimating;
         public int stepsPerFrame, Index, currFrameSteps;
-        private bool isSpriteSheet;
+        public bool isSpriteSheet;
         private Vector2 Position, Origin;
         private float rotation;
         private List<Rectangle> sourceRectangles;
@@ -64,23 +64,34 @@ namespace PowerOfOne
             Index = 0;
             currFrameSteps = 0;
             isAnimating = IsAnimating;
-        }
+        }        
 
-        public void Draw(SpriteBatch spriteBatch, float size, float depth, Color color)
+        public Texture2D GetCurrentTexture()
         {
-            if (isSpriteSheet)
+            if(!isSpriteSheet)
             {
-                spriteBatch.Draw(sourceSpriteSheet, Position, sourceRectangles[Index], color, rotation, Origin, size, SpriteEffects.None, depth);
+                return currentTexture;
             }
             else
             {
-                spriteBatch.Draw(currentTexture, Position, null, color, rotation, Origin, size, SpriteEffects.None, depth);
-            }
-        }
+                Rectangle rect = sourceRectangles[Index];
+                int width = rect.Width;
+                int height = rect.Height;
+                Texture2D texture = new Texture2D(Main.graphics.GraphicsDevice, width, height);
+                Color[] data = new Color[width * height];
+                Color[] sheetData = new Color[sourceSpriteSheet.Width * sourceSpriteSheet.Height];
+                sourceSpriteSheet.GetData(sheetData);
 
-        public void SetPosition(Vector2 position)
-        {
-            Position = position;
+                for (int x = 0; x < width; x++)
+                {
+                    for (int y = 0; y < height; y++)
+                    {
+                        data[x + y * width] = sheetData[(x + rect.X) + (y + rect.Y) * sourceSpriteSheet.Width];
+                    }
+                }
+                texture.SetData(data);
+                return texture;
+            }
         }
 
         #region Update
@@ -143,5 +154,17 @@ namespace PowerOfOne
         }
 
         #endregion Update
+
+        public void Draw(SpriteBatch spriteBatch, float size, float depth, Color color)
+        {
+            if (isSpriteSheet)
+            {
+                spriteBatch.Draw(sourceSpriteSheet, Position, sourceRectangles[Index], color, rotation, Origin, size, SpriteEffects.None, depth);
+            }
+            else
+            {
+                spriteBatch.Draw(currentTexture, Position, null, color, rotation, Origin, size, SpriteEffects.None, depth);
+            }
+        }
     }
 }

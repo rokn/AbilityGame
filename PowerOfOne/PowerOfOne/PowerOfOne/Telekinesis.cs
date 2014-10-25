@@ -30,10 +30,10 @@ namespace PowerOfOne
             : base(owner)
         {
             push = false;
-            pushSpeed = 20f;
-            pullstrength = 12f;
-            pushMiliSeconds = 400;
-            pullMiliSeconds = 200;
+            pushSpeed = 4f * Owner.AbilityPower;
+            pushMiliSeconds = 80 * Owner.AbilityPower;
+            pullstrength = 2.4f * Owner.AbilityPower;
+            pullMiliSeconds = 40 * Owner.AbilityPower;
             pushCollision = new List<Vector2>();
         }
 
@@ -46,11 +46,15 @@ namespace PowerOfOne
 
         public override void ActivateBasicAbility()
         {
+            pushSpeed = 4f * Owner.AbilityPower;
+            pushMiliSeconds = 80 * Owner.AbilityPower;
             Push();
         }
 
         public override void ActivateSecondaryAbility()
         {
+            pullstrength = 2.4f * Owner.AbilityPower;
+            pullMiliSeconds = 40 * Owner.AbilityPower;
             Pull();
         }
 

@@ -17,7 +17,9 @@ namespace PowerOfOne
         protected float moveSpeed;
         protected float size;
         protected int attackSpeed;
+        protected int baseAttackSpeed;
         protected int baseDamage;
+        protected int baseWeaponTime;
         protected int health;
         protected int maxHealth;
         protected int weaponTime;
@@ -43,6 +45,59 @@ namespace PowerOfOne
         }
 
         public bool noClip { get; set; }
+
+        public byte AbilityPower { get; protected set; }
+
+        public int BaseWeaponTime
+        {
+            get
+            {
+                return baseWeaponTime;
+            }
+            protected set
+            {
+                baseWeaponTime = value;
+
+                if (baseWeaponTime <= 0)
+                {
+                    baseWeaponTime = 1;
+                }
+            }
+        }
+
+        public int BaseAttackSpeed
+        {
+            get
+            {
+                return baseAttackSpeed;
+            }
+            protected set
+            {
+                baseAttackSpeed = value;
+
+                if (baseAttackSpeed <= 0)
+                {
+                    baseAttackSpeed = 1;
+                }
+            }
+        }
+
+        public int AttackSpeed
+        {
+            get
+            {
+                return attackSpeed;
+            }
+            set
+            {
+                attackSpeed = value;
+
+                if (attackSpeed <= 0)
+                {
+                    attackSpeed = 1;
+                }
+            }
+        }
 
         public float BaseSpeed
         {
@@ -70,6 +125,23 @@ namespace PowerOfOne
                     throw new ArgumentOutOfRangeException("Size of entities must be greater than zero");
                 }
                 size = value;
+            }
+        }
+
+        public int WeaponTime
+        {
+            get
+            {
+                return weaponTime;
+            }
+            set
+            {
+                weaponTime = value;
+
+                if(weaponTime<= 0)
+                {
+                    weaponTime = 1;
+                }
             }
         }
 
@@ -200,6 +272,10 @@ namespace PowerOfOne
                     {
                         position = previousPos;
                         UpdateRect();
+                        if(moveDistance > 1)
+                        {
+                            Move(direction, moveDistance - 1);
+                        }
                     }
                 }
                 CheckIfWithinBounds();
