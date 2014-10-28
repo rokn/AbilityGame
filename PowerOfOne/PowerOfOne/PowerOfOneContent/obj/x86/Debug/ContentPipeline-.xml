@@ -577,6 +577,15 @@
       <Output>D:\Games\Dropbox\GitHub\PowerOfOne\PowerOfOne\PowerOfOne\bin\x86\Debug\Content\Player\Fly.xnb</Output>
       <Time>2014-10-23T10:03:35+03:00</Time>
     </Item>
+    <Item>
+      <Source>Abilities\Circle.png</Source>
+      <Name>Abilities\Circle</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Games\Dropbox\GitHub\PowerOfOne\PowerOfOne\PowerOfOne\bin\x86\Debug\Content\Abilities\Circle.xnb</Output>
+      <Time>2014-10-28T10:12:00+02:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <ContentProjectGUID Null="true" />

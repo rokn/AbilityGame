@@ -26,15 +26,20 @@ namespace PowerOfOne
         private Vector2 pushEnd;
         private Vector2 pushStart;
 
-        public Telekinesis(Entity owner)
-            : base(owner)
+        public Telekinesis()
+            : base()
         {
             push = false;
+            pushCollision = new List<Vector2>();
+        }
+
+        public override void Initialize(Entity owner)
+        {
+            base.Initialize(owner);
             pushSpeed = 4f * Owner.AbilityPower;
             pushMiliSeconds = 80 * Owner.AbilityPower;
             pullstrength = 2.4f * Owner.AbilityPower;
             pullMiliSeconds = 40 * Owner.AbilityPower;
-            pushCollision = new List<Vector2>();
         }
 
         public override void Load()
@@ -90,6 +95,7 @@ namespace PowerOfOne
                 if (Main.mouse.RightReleased())
                 {
                     pull = false;
+                    Owner.canWalk = true;
                 }
                 else
                 {
@@ -158,8 +164,6 @@ namespace PowerOfOne
                 {
                     pushCollision.Add(pushStart + startToEndDirection * i);
                 }
-
-                Owner.DirectTowardsRotation(MathHelper.ToDegrees(teleAngle));
             }
         }
 
@@ -172,6 +176,7 @@ namespace PowerOfOne
                 pullCenter.X = (float)Math.Round(Main.mouse.RealPosition.X);
                 pullCenter.Y = (float)Math.Round(Main.mouse.RealPosition.Y);
                 pullRadius = pullTexture.Width / 2;
+                Owner.canWalk = false;
             }
         }
 

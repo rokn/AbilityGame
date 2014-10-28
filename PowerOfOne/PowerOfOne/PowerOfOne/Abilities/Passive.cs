@@ -4,18 +4,18 @@
     {
         public bool Activated { get; set; }
 
-        public Passive(Entity owner)
-            : base(owner) 
+        public Passive()
+            : base() 
         {
             Activated = false;
         }
 
-        public virtual void Activate() 
+        public virtual void ActivatePassive()
         {
             Activated = true;
         }
 
-        public virtual void Deactivate() 
+        public virtual void DeactivatePassive()
         {
             Activated = false;
         }

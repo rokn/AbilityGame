@@ -27,26 +27,26 @@ namespace PowerOfOne
         private List<FlashStat> flashes;
         private TimeSpan flashTimer;
 
-        public Speed(Entity owner)
-            : base(owner) 
+        public Speed()
+            : base() 
         {
             flashes = new List<FlashStat>();
         }
 
-        public override void Activate()
+        public override void ActivatePassive()
         {
             Owner.ChangeSpeed(Owner.BaseSpeed + 3 * Owner.AbilityPower);
             Owner.WeaponTime -= 30 * Owner.AbilityPower;
             Owner.AttackSpeed -= 50 * Owner.AbilityPower;
-            base.Activate();
+            base.ActivatePassive();
         }
 
-        public override void Deactivate()
+        public override void DeactivatePassive()
         {
             Owner.ChangeSpeed(Owner.BaseSpeed);
             Owner.WeaponTime = Owner.BaseWeaponTime;
             Owner.AttackSpeed = Owner.BaseAttackSpeed;
-            base.Deactivate();
+            base.DeactivatePassive();
         }
 
         public override void Update(GameTime gameTime)

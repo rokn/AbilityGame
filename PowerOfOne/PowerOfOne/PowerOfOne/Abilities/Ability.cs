@@ -5,7 +5,11 @@ namespace PowerOfOne
 {
     public abstract class Ability
     {
-        public Ability(Entity owner)
+        public Ability()
+        {
+        }
+
+        public virtual void Initialize(Entity owner)
         {
             Owner = owner;
         }

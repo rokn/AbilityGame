@@ -39,6 +39,8 @@ namespace PowerOfOne
         public static Texture2D mouseTexture;
         public static TileMap tilemap;
 
+
+        public static List<EnemyStat> EnemyStats { get; set; }
         public static Random rand { get; private set; }
 
         public static string SavePath
@@ -72,6 +74,7 @@ namespace PowerOfOne
         {
             mouse = new MouseCursor(width, height, 150);
             keyboard = new KeysInput();
+            InitializeEnemyStats();
             exit = false;
             camera = new Camera();
             tilemap = new TileMap(Vector2.Zero, levelWidth1, levelHeight1);
@@ -87,13 +90,13 @@ namespace PowerOfOne
                 removeEntities = new List<Entity>();
                 player = new Player(new Vector2(370, 1612));
                 Entities.Add(player);
-                Entities.Add(new Enemy(new Vector2(600, 800), rand.Next(EnemiesCount)));
-                Entities.Add(new Enemy(new Vector2(700, 800), rand.Next(EnemiesCount)));
-                Entities.Add(new Enemy(new Vector2(800, 800), rand.Next(EnemiesCount)));
-                Entities.Add(new Enemy(new Vector2(900, 800), rand.Next(EnemiesCount)));
-                Entities.Add(new Enemy(new Vector2(1000, 800), rand.Next(EnemiesCount)));
-                Entities.Add(new Enemy(new Vector2(1100, 800), rand.Next(EnemiesCount)));
-                Entities.Add(new Enemy(new Vector2(1200, 800), rand.Next(EnemiesCount)));
+                Entities.Add(new Enemy(new Vector2(600, 800), 0));
+                Entities.Add(new Enemy(new Vector2(700, 800), 0));
+                Entities.Add(new Enemy(new Vector2(800, 800), 0));
+                Entities.Add(new Enemy(new Vector2(900, 800), 0));
+                Entities.Add(new Enemy(new Vector2(1000, 800), 0));
+                Entities.Add(new Enemy(new Vector2(1100, 800), 0));
+                Entities.Add(new Enemy(new Vector2(1200, 800), 0));
             }
             else
             {
@@ -102,6 +105,20 @@ namespace PowerOfOne
 
             LoadLevel();
             base.Initialize();
+        }
+
+        private void InitializeEnemyStats()
+        {
+            EnemyStats = new List<EnemyStat>();
+            EnemyStat stat;
+
+            stat = new EnemyStat();
+            stat.MaxHealth = 100;
+            stat.MoveSpeed = 4;
+            stat.SightDistance = 300;
+            stat.Ability = typeof(Regenaration);
+            stat.Aggresive = false;
+            EnemyStats.Add(stat);
         }
 
         protected override void LoadContent()

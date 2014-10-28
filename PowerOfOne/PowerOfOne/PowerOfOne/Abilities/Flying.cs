@@ -4,17 +4,17 @@ namespace PowerOfOne
 {
     public class Flying : Passive
     {
-        public Flying(Entity owner)
-            : base(owner) { }
+        public Flying()
+            : base() { }
 
-        public override void Activate()
+        public override void ActivatePassive()
         {
             Owner.Size = 1.2f;
             Owner.ChangeSpeed(Owner.BaseSpeed + 4);
             Owner.walkingAnimation[Owner.currentDirection].ChangeAnimatingState(false);
             Owner.baseDepth = 0.8f;
             Owner.noClip = true;
-            base.Activate();
+            base.ActivatePassive();
         }
 
         public override void Update(GameTime gameTime)
@@ -25,7 +25,7 @@ namespace PowerOfOne
             }
         }
 
-        public override void Deactivate()
+        public override void DeactivatePassive()
         {
             if (!Owner.CheckForCollision())
             {
@@ -33,7 +33,7 @@ namespace PowerOfOne
                 Owner.ChangeSpeed(Owner.BaseSpeed);
                 Owner.baseDepth = 0.2f;
                 Owner.noClip = false;
-                base.Deactivate();
+                base.DeactivatePassive();
             }
         }
     }

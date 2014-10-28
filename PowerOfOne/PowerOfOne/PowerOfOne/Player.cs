@@ -25,6 +25,7 @@ namespace PowerOfOne
         private Vector2 weaponTipPosition;
         private bool weaponSelected;
         private int selectedAbility;
+        ParticleEngine engine;
         #endregion
 
         public Player(Vector2 pos)
@@ -43,9 +44,15 @@ namespace PowerOfOne
             hasHit = false;
             hasPassive = true;
             baseDamage = 15;
+
             abilities = new List<Ability>();
-            passive = new Speed(this);
-            AbilityPower = 5;
+            abilities.Add(new FireControl());
+            abilities.ForEach(ab => ab.Initialize(this));
+            passive = new Speed();
+            passive.Initialize(this);
+
+
+            AbilityPower = 1;
             flyingAnimation = new Dictionary<Direction, Animation>();
             Initialize();
         }
@@ -77,6 +84,8 @@ namespace PowerOfOne
                 kvp.Value.stepsPerFrame = 10 - (int)moveSpeed;
             }
 
+            abilities.ForEach(ab => ab.Load());
+
             base.Load();
         }
 
@@ -84,7 +93,7 @@ namespace PowerOfOne
 
         public override void Update(GameTime gameTime)
         {
-            CheckForInput();
+            HandleForInput();
 
             if (weaponIsOut)
             {
@@ -121,6 +130,8 @@ namespace PowerOfOne
                 passive.Update(gameTime);
             }
 
+            abilities.ForEach(ab => ab.Update(gameTime));
+
             UpdateCamera();
             base.Update(gameTime);
         }
@@ -154,6 +165,8 @@ namespace PowerOfOne
             {
                 walkingAnimation[currentDirection].Draw(spriteBatch, size, 0.9f, Color.White * 0.2f);                
             }
+
+            abilities.ForEach(ab => ab.Draw(spriteBatch));
         }
 
         protected override void Move(Direction direction, float moveDistance)
@@ -238,13 +251,12 @@ namespace PowerOfOne
             weaponIsOut = false;
         }
 
-        private void CheckForInput()
+        private void HandleForInput()
         {
             CheckForMovementButtons();
             CheckForAttackButtons();
             CheckForPassiveButton();
-
-            
+            CheckForAbilitySwitchButtons();
         }
 
         private void CheckForPassiveButton()
@@ -255,11 +267,11 @@ namespace PowerOfOne
                 {
                     if (!passive.Activated)
                     {
-                        passive.Activate();
+                        passive.ActivatePassive();
                     }
                     else
                     {
-                        passive.Deactivate();
+                        passive.DeactivatePassive();
                     }
                 }
             }
@@ -351,7 +363,7 @@ namespace PowerOfOne
             {
                 if (abilities.Count >= 1)
                 {
-                    selectedAbility = 1;
+                    selectedAbility = 0;
                     weaponSelected = false;
                 }
             }
@@ -360,7 +372,7 @@ namespace PowerOfOne
             {
                 if (abilities.Count >= 2)
                 {
-                    selectedAbility = 2;
+                    selectedAbility = 1;
                     weaponSelected = false;
                 }
             }
@@ -369,7 +381,7 @@ namespace PowerOfOne
             {
                 if (abilities.Count >= 3)
                 {
-                    selectedAbility = 3;
+                    selectedAbility = 2;
                     weaponSelected = false;
                 }
             }
@@ -378,7 +390,7 @@ namespace PowerOfOne
             {
                 if (abilities.Count >= 4)
                 {
-                    selectedAbility = 4;
+                    selectedAbility = 3;
                     weaponSelected = false;
                 }
             }

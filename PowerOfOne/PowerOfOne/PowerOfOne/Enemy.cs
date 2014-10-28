@@ -17,21 +17,25 @@ namespace PowerOfOne
         private Random rand;
         private int id;
         private TimeSpan idleMoveTimer;
+        private EnemyStat stats;
         private Ability ability;
-        private bool aggresive;
-        private float sightDistance;
 
         public Enemy(Vector2 pos,int id)
             : base(pos)
         {
-            health = 100;
-            maxHealth = 100;
-            moveSpeed = 4;
-            sightDistance = 300;
+            stats = Main.EnemyStats[id];
+            health = stats.MaxHealth;
+            maxHealth = stats.MaxHealth;
+            moveSpeed = stats.MoveSpeed;
+            ability = (Ability)Activator.CreateInstance(stats.Ability);
+            if(ability is Passive)
+            {
+                (ability as Passive).ActivatePassive();
+            }
+            ability.Initialize(this);
+            AbilityPower = 1;
             idleMovementSteps = new Queue<Direction>();
             rand = Main.rand;
-            ability = new Telekinesis(this);
-            aggresive = true;
             this.id = id;
             idleMoveTimer = new TimeSpan();
         }
@@ -57,7 +61,6 @@ namespace PowerOfOne
 
             healthBar.Load(true, "Enemies");
 
-            ability.Load();
             base.Load();
         }
 
@@ -66,7 +69,7 @@ namespace PowerOfOne
             healthBar.Update(Position - healtBarPositionOffset, health, maxHealth);
             ability.Update(gameTime);
 
-            if (aggresive)
+            if (stats.Aggresive)
             {
                 if (CheckForPlayer())
                 {
@@ -124,7 +127,7 @@ namespace PowerOfOne
 
         private bool CheckForPlayer()
         {
-            return Vector2.Distance(Position, Main.Entities.First(ent => ent.GetType() == typeof(Player)).Position) <= sightDistance;
+            return Vector2.Distance(Position, Main.Entities.First(ent => ent.GetType() == typeof(Player)).Position) <= stats.SightDistance;
         }
 
         private void IdleMovement(GameTime gameTime)

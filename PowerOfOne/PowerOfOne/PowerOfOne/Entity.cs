@@ -7,21 +7,51 @@ namespace PowerOfOne
 {
     public abstract class Entity
     {
+        #region Vars
         public int EntityWidth { get; set; }
 
         public int EntityHeight { get; set; }
 
+        public float Health
+        {
+            get
+            {
+                return health;
+            }
+            set
+            {
+                health = value;
+
+                if(health>maxHealth)
+                {
+                    health = maxHealth;
+                }
+            }
+        }
+
+        public float MaxHealth
+        {
+            get
+            {
+                return maxHealth;
+            }
+            protected set
+            {
+                maxHealth = value;
+            }
+        }
+        public bool canWalk { get; set; }
+
         private float baseSpeed;
         protected bool canAttack;
-        protected bool canWalk;
         protected float moveSpeed;
         protected float size;
         protected int attackSpeed;
         protected int baseAttackSpeed;
         protected int baseDamage;
         protected int baseWeaponTime;
-        protected int health;
-        protected int maxHealth;
+        protected float health;
+        protected float maxHealth;
         protected int weaponTime;
         protected Rectangle walkingRect;
         protected Texture2D walkSpriteSheet;
@@ -32,6 +62,7 @@ namespace PowerOfOne
         public Direction currentDirection;
         public float baseDepth;
         public Rectangle rect;
+        #endregion
 
         public Entity(Vector2 pos)
         {
