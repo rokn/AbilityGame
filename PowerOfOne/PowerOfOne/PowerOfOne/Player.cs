@@ -52,7 +52,7 @@ namespace PowerOfOne
             passive.Initialize(this);
 
 
-            AbilityPower = 1;
+            AbilityPower = 5;
             flyingAnimation = new Dictionary<Direction, Animation>();
             Initialize();
         }
@@ -82,11 +82,11 @@ namespace PowerOfOne
             {
                 kvp.Value.ChangeAnimatingState(false);
                 kvp.Value.stepsPerFrame = 10 - (int)moveSpeed;
-            }
-
-            abilities.ForEach(ab => ab.Load());
+            }            
 
             base.Load();
+
+            abilities.ForEach(ab => ab.Load());
         }
 
         #endregion Load
@@ -333,12 +333,14 @@ namespace PowerOfOne
                             if (!weaponIsOut)
                             {
                                 StartBasicAttack();
+                                DirectTowardsMouse();
                             }
                         }
                     }
                     else
                     {
                         abilities[selectedAbility].ActivateBasicAbility();
+                        DirectTowardsMouse();
                     }
                 }
             }

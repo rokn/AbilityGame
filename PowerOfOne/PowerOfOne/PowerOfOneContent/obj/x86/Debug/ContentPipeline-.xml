@@ -586,6 +586,15 @@
       <Output>D:\Games\Dropbox\GitHub\PowerOfOne\PowerOfOne\PowerOfOne\bin\x86\Debug\Content\Abilities\Circle.xnb</Output>
       <Time>2014-10-28T10:12:00+02:00</Time>
     </Item>
+    <Item>
+      <Source>Abilities\FireControl\phoenix.png</Source>
+      <Name>Abilities\FireControl\phoenix</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Games\Dropbox\GitHub\PowerOfOne\PowerOfOne\PowerOfOne\bin\x86\Debug\Content\Abilities\FireControl\phoenix.xnb</Output>
+      <Time>2014-10-29T11:33:58+02:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <ContentProjectGUID Null="true" />

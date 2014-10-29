@@ -141,3 +141,4 @@ D:\Games\Dropbox\GitHub\PowerOfOne\PowerOfOne\PowerOfOne\obj\x86\Debug\PowerOfOn
 D:\Games\Dropbox\GitHub\PowerOfOne\PowerOfOne\PowerOfOne\obj\x86\Debug\PowerOfOne.application
 D:\Games\Dropbox\GitHub\PowerOfOne\PowerOfOne\PowerOfOne\bin\x86\Debug\Content\Player\Fly.xnb
 D:\Games\Dropbox\GitHub\PowerOfOne\PowerOfOne\PowerOfOne\bin\x86\Debug\Content\Abilities\Circle.xnb
+D:\Games\Dropbox\GitHub\PowerOfOne\PowerOfOne\PowerOfOne\bin\x86\Debug\Content\Abilities\FireControl\phoenix.xnb

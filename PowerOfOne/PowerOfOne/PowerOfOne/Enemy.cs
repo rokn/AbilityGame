@@ -33,7 +33,7 @@ namespace PowerOfOne
                 (ability as Passive).ActivatePassive();
             }
             ability.Initialize(this);
-            AbilityPower = 1;
+            AbilityPower = 5;
             idleMovementSteps = new Queue<Direction>();
             rand = Main.rand;
             this.id = id;
@@ -171,7 +171,7 @@ namespace PowerOfOne
             base.Draw(spriteBatch);
         }
 
-        public override void TakeDamage(int damageToBeTaken)
+        public override void TakeDamage(float damageToBeTaken)
         {
             showHealthBar = true;
             base.TakeDamage(damageToBeTaken);

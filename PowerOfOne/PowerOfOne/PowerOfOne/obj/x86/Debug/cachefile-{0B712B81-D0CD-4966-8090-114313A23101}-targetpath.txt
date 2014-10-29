@@ -63,3 +63,4 @@ Content\Abilities\Telekinesis\Pull.xnb
 Content\TileSets\Tileset_ (42).xnb
 Content\Player\Fly.xnb
 Content\Abilities\Circle.xnb
+Content\Abilities\FireControl\phoenix.xnb

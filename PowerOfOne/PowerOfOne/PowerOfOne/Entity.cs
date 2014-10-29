@@ -42,6 +42,30 @@ namespace PowerOfOne
         }
         public bool canWalk { get; set; }
 
+        public Rectangle WalkingRect
+        {
+            get
+            {
+                return walkingRect;
+            }
+            set
+            {
+                walkingRect = value;
+            }
+        }
+
+        public Vector2 WalkingOrigin
+        {
+            get
+            {
+                return walkingOrigin;
+            }
+            set
+            {
+                walkingOrigin = value;
+            }
+        }
+
         private float baseSpeed;
         protected bool canAttack;
         protected float moveSpeed;
@@ -76,6 +100,8 @@ namespace PowerOfOne
         }
 
         public bool noClip { get; set; }
+
+        public bool EntityNoClip { get; set; }
 
         public byte AbilityPower { get; protected set; }
 
@@ -190,9 +216,9 @@ namespace PowerOfOne
 
         protected virtual void Initialize()
         {
-            walkingOrigin = new Vector2(EntityWidth / 2, EntityHeight / 2 - Math.Min(TileSet.tileHeight, EntityHeight / 2));
+            walkingOrigin = Scripts.GetWalkingOrigin(EntityWidth,EntityHeight);
             origin = new Vector2(EntityWidth / 2, EntityHeight / 2);
-            walkingRect = new Rectangle((int)position.X - (int)walkingOrigin.X, (int)position.Y - (int)walkingOrigin.Y, EntityWidth, EntityHeight - 24);
+            walkingRect = Scripts.GetWalkingRect(Position - walkingOrigin,EntityWidth,EntityHeight);
             rect = new Rectangle((int)position.X - (int)origin.X, (int)position.Y - (int)origin.Y, EntityWidth, EntityHeight);
             UpdateRect();
             baseSpeed = moveSpeed;
@@ -230,30 +256,16 @@ namespace PowerOfOne
 
         public void MoveByPosition(Vector2 movement)
         {
-            Vector2 oldPos = position;
+            Vector2 previousPos = position;
             position += movement;
             UpdateRect();
 
-            foreach (Rectangle rect in Main.blockRects)
+            if (!noClip)
             {
-                if (walkingRect.Intersects(rect))
+                if (CheckForCollision())
                 {
-                    position = oldPos;
+                    position = previousPos;
                     UpdateRect();
-                    break;
-                }
-            }
-
-            foreach (Entity entity in Main.Entities)
-            {
-                if (entity != this)
-                {
-                    if (walkingRect.Intersects(entity.walkingRect))
-                    {
-                        position = oldPos;
-                        UpdateRect();
-                        break;
-                    }
                 }
             }
 
@@ -324,17 +336,27 @@ namespace PowerOfOne
                 }
             }
 
-            foreach (Entity entity in Main.Entities)
+            if (!EntityNoClip)
             {
-                if (entity != this)
+                foreach (Entity entity in Main.Entities)
                 {
-                    if (walkingRect.Intersects(entity.walkingRect))
+                    if (entity != this)
                     {
-                        return true;
+                        if (walkingRect.Intersects(entity.walkingRect))
+                        {
+                            return true;
+                        }
                     }
                 }
             }
+
             return false;
+        }
+
+        public void DirectTowardsMouse()
+        {
+            float angle = MathAid.FindRotation(Position, Main.mouse.RealPosition);
+            DirectTowardsRotation(MathHelper.ToDegrees(angle));
         }
 
         public void DirectTowardsRotation(float rInDegrees)
@@ -392,10 +414,10 @@ namespace PowerOfOne
             rect = MathAid.UpdateRectViaVector(rect, position - origin);
         }
 
-        public virtual void TakeDamage(int damageToBeTaken)
+        public virtual void TakeDamage(float damageToBeTaken)
         {
             health -= damageToBeTaken;
-            if (health < 0)
+            if (health <= 0)
             {
                 Main.removeEntities.Add(this);
             }

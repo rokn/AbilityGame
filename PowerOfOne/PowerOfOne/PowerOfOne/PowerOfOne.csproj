@@ -96,7 +96,7 @@
     <Compile Include="EnemyStat.cs" />
     <Compile Include="Entity.cs" />
     <Compile Include="Abilities\Flying.cs" />
-    <Compile Include="FireControl.cs" />
+    <Compile Include="Abilities\FireControl.cs" />
     <Compile Include="FrameCounter.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="EditorGUI.cs" />

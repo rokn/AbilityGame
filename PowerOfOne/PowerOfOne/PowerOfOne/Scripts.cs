@@ -157,5 +157,15 @@ namespace PowerOfOne
         {
             list.Remove(item);
         }
+
+        public static Rectangle GetWalkingRect(Vector2 Position,int Width,int Height)
+        {
+            return new Rectangle((int)Position.X, (int)Position.Y, Width, Height - 24);
+        }
+
+        internal static Vector2 GetWalkingOrigin(int EntityWidth, int EntityHeight)
+        {
+            return new Vector2(EntityWidth / 2, EntityHeight / 2 - Math.Min(TileSet.tileHeight, EntityHeight / 2));
+        }
     }
 }
