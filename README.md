@@ -150,7 +150,7 @@ Must create an Animator instance for the given `view` from the `animationBody`. 
 ##### `public abstract Animator getAnimationFor(AnimationBody animationBody, View view)`:
 Should create the animation for the given `view` from the `animationBody` the same as `createAnimationFor()` but it is not necessary to set the animation's repeating and interpolation info because it is handled by the `BaseProvider` class.
 
-### `inteface InterpolatorProvider`
+### `interface InterpolatorProvider`
 ##### `public Interpolator createInterpolatorFor(final AnimationBody animationBody)`:
 Should provide an anumation interpolator based on the given `animationBody`. Example:
 ```
