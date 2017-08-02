@@ -109,7 +109,7 @@ An enum containing all of the preset curves. Available options are:
 * `LINEAR`
 
 ### `class AnimationBody`:
-This class contains all of the properties of a given animation. All of them are accessible from the [`AnimationProvider`](#animationprovider).
+This class contains all of the properties of a given animation. All of them are accessible from the [`AnimationProvider`](#interface-animationprovider).
 
 * `autoStart` - Determines if the animation will start before returning it from [`createFor()`](#createFor).
 * `force` - The force of the animation. Used by most of the presets to determine how much to express the animation (rotate the view more, wobble harder, etc...).
@@ -146,12 +146,12 @@ Must create an Animator instance for the given `view` from the `animationBody`. 
 ```
 
 <a name=baseprovider></a>
-###`abstract class BaseProvider`:
-#####`public abstract Animator getAnimationFor(AnimationBody animationBody, View view)`:
+### `abstract class BaseProvider`:
+##### `public abstract Animator getAnimationFor(AnimationBody animationBody, View view)`:
 Should create the animation for the given `view` from the `animationBody` the same as `createAnimationFor()` but it is not necessary to set the animation's repeating and interpolation info because it is handled by the `BaseProvider` class.
 
-###`inteface InterpolatorProvider`:
-#####`public Interpolator createInterpolatorFor(final AnimationBody animationBody)`:
+### `inteface InterpolatorProvider`:
+##### `public Interpolator createInterpolatorFor(final AnimationBody animationBody)`:
 Should provide an anumation interpolator based on the given `animationBody`. Example:
 ```
 public Interpolator createInterpolatorFor(AnimationBody animationBody) {
@@ -160,7 +160,7 @@ public Interpolator createInterpolatorFor(AnimationBody animationBody) {
 }
 ```
 
-###`class SimpleAnimatorListener`:
+### `class SimpleAnimatorListener`:
 This is a helper class you can use if you don't want to override all of the `AnimatorListener` methods. It provides four methods with callbacks for the for events in an `AnimatorListener`.
 `static Animator.AnimatorListener forStart(final OnAnimationStartListener startListener);`
 
