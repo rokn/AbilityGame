@@ -18,11 +18,11 @@ Quick start
 
 API
 -----
-### `class Flubber`:
+### `class Flubber`
 
 This is the main class you will use to create your animations.
 <a name=flubber.with>
-##### `public static AnimationBody.Builder with()` </a>:
+##### `public static AnimationBody.Builder with()` </a>
  Used to get a new `AnimationBody.Builder` instance. With it you can create an `AnimationBody` which holds all the data for an animation. Example:
 ```
 Flubber.with()
@@ -35,7 +35,7 @@ Flubber.with()
 This will create an animation from the [preset animation Morph](#enum-animationpreset) with an interpolator from the [preset interpolator BZR_EASE_IN](#enum-curve). It will have a duration of 100 milliseconds and it will start automatically. The view which will be animated is `viewToBeAnimated`. 
 More about the properties of the [`AnimationBody`](#class-animationbody).
 
-#### `enum AnimationPreset`: 
+#### `enum AnimationPreset`
 An enum containing all of the preset animations. Available options are:
 
 * `SLIDE_LEFT`
@@ -73,7 +73,7 @@ An enum containing all of the preset animations. Available options are:
 * `SCALE_Y`
 
 
-#### `enum Curve`: 
+#### `enum Curve`
 An enum containing all of the preset curves. Available options are:
 
 * `BZR_EASE_IN`
@@ -108,7 +108,7 @@ An enum containing all of the preset curves. Available options are:
 * `SPRING`
 * `LINEAR`
 
-### `class AnimationBody`:
+### `class AnimationBody`
 This class contains all of the properties of a given animation. All of them are accessible from the [`AnimationProvider`](#interface-animationprovider).
 
 * `autoStart` - Determines if the animation will start before returning it from [`createFor()`](#createFor).
@@ -128,11 +128,11 @@ This class contains all of the properties of a given animation. All of them are 
 * `animatorListener` - Sets an animator listener for the animation
 
 <a name=createFor></a>
-##### `public Animator createFor(View view)`:
+##### `public Animator createFor(View view)`
 Uses all of the properties to create an animation for the given view. If the `autoStart` property is enabled the animation will be started from this method otherwise the animation must be started after it is returned.
 
-### `interface AnimationProvider`:
-#####`public Animator createAnimationFor(final AnimationBody animationBody, View view)`:
+### `interface AnimationProvider`
+##### `public Animator createAnimationFor(final AnimationBody animationBody, View view)`
 
 Must create an Animator instance for the given `view` from the `animationBody`. If you want you can use this interface to create new animations but it is recomended to use the [`BaseProvider`](#baseprovider) class because it implements animation repetition and applies the interpolator. Example: 
 ```
@@ -146,11 +146,11 @@ Must create an Animator instance for the given `view` from the `animationBody`. 
 ```
 
 <a name=baseprovider></a>
-### `abstract class BaseProvider`:
+### `abstract class BaseProvider`
 ##### `public abstract Animator getAnimationFor(AnimationBody animationBody, View view)`:
 Should create the animation for the given `view` from the `animationBody` the same as `createAnimationFor()` but it is not necessary to set the animation's repeating and interpolation info because it is handled by the `BaseProvider` class.
 
-### `inteface InterpolatorProvider`:
+### `inteface InterpolatorProvider`
 ##### `public Interpolator createInterpolatorFor(final AnimationBody animationBody)`:
 Should provide an anumation interpolator based on the given `animationBody`. Example:
 ```
@@ -160,7 +160,7 @@ public Interpolator createInterpolatorFor(AnimationBody animationBody) {
 }
 ```
 
-### `class SimpleAnimatorListener`:
+### `class SimpleAnimatorListener`
 This is a helper class you can use if you don't want to override all of the `AnimatorListener` methods. It provides four methods with callbacks for the for events in an `AnimatorListener`.
 `static Animator.AnimatorListener forStart(final OnAnimationStartListener startListener);`
 
