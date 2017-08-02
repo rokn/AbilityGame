@@ -32,7 +32,7 @@ Flubber.with()
 	   .createFor(viewToBeAnimated);
 ```
 This will create an animation from the [preset animation Morph](#enum-animationpreset). It will have a duration of 100 milliseconds and it will start automatically. The view which will be animated is `viewToBeAnimated`. 
-More about the properties of the [`AnimationBody`](#animationbody).
+More about the properties of the [`AnimationBody`](#class-animationbody).
 
 #### `enum AnimationPreset`: 
 An enum containing all of the preset animations. Available options are:
@@ -125,11 +125,11 @@ This class contains all of the properties of a given animation. All of them are 
 * `iterpolatorProvider` - Sets the [InterpolatorProvider](#interpolatorprovider) for the animation.
 * `animatorListener` - Sets an animator listener for the animation
 
-<a name=createFor>
-##### `public Animator createFor(View view)` </a>:
+<a name=createFor></a>
+##### `public Animator createFor(View view)`:
 Uses all of the properties to create an animation for the given view. If the `autoStart` property is enabled the animation will be started from this method otherwise the animation must be started after it is returned.
 
-###`interface AnimationProvider`:
+### `interface AnimationProvider`:
 `public Animator createAnimationFor(final [AnimationBody](asd) animationBody, View view)`:
 
 Must create an Animator instance for the given `view` from the `animationBody`.
