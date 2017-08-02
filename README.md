@@ -123,8 +123,8 @@ This class contains all of the properties of a given animation. All of them are 
 * `repeatMode` - Used by the [`BaseProvider`](#baseprovider) class to set how the animation is repeated(restart or reverse).
 * `delay` - Sets the delay of the animation.
 * `duration` - Sets the duration of the animation.
-* `animation` - Sets the [`AnimationProvider`](#animationprovider) for the animation.
-* `iterpolatorProvider` - Sets the [`InterpolatorProvider`](#interpolatorprovider) for the animation.
+* `animation` - Sets the [`AnimationProvider`](#interface-animationprovider) for the animation.
+* `iterpolatorProvider` - Sets the [`InterpolatorProvider`](#interface-interpolatorprovider) for the animation.
 * `animatorListener` - Sets an animator listener for the animation
 
 <a name=createFor></a>
