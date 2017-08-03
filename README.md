@@ -26,11 +26,11 @@ This is the main class you will use to create your animations.
  Used to get a new `AnimationBody.Builder` instance. With it you can create an `AnimationBody` which holds all the data for an animation. Example:
 ```
 Flubber.with()
-	   .animation(Flubber.AnimationPreset.MORPH)
-       .interpolator(Flubber.Curve.BZR_EASE_IN)
-	   .duration(100)
-	   .autoStart(true)
-	   .createFor(viewToBeAnimated);
+	.animation(Flubber.AnimationPreset.MORPH)
+	.interpolator(Flubber.Curve.BZR_EASE_IN)
+	.duration(100)
+	.autoStart(true)
+	.createFor(viewToBeAnimated);
 ```
 This will create an animation from the [preset animation Morph](#enum-animationpreset) with an interpolator from the [preset interpolator BZR_EASE_IN](#enum-curve). It will have a duration of 100 milliseconds and it will start automatically. The view which will be animated is `viewToBeAnimated`. 
 More about the properties of the [`AnimationBody`](#class-animationbody).
